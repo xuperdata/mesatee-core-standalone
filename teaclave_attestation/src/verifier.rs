@@ -22,9 +22,17 @@ use teaclave_utils::EnclaveMeasurement;
 
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
-use std::fs;
 use std::path::PathBuf;
 use std::env;
+use std::string::{String, ToString};
+
+
+#[cfg(not(feature = "mesalock_sgx"))]
+use std::fs;
+#[cfg(feature = "mesalock_sgx")]
+use std::prelude::v1::*;
+#[cfg(feature = "mesalock_sgx")]
+use std::untrusted::fs;
 
 // TODO
 #[derive(Debug, Serialize, Deserialize)]

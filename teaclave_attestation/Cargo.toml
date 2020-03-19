@@ -11,12 +11,12 @@ name = "teaclave_attestation"
 path = "src/lib.rs"
 
 [features]
-default = []
+default = ["mesalock_sgx"]
 mesalock_sgx = ["sgx_tstd", "sgx_tcrypto", "sgx_rand", "sgx_tse"]
 
 [dependencies]
 anyhow       = { git = "https://github.com/mesalock-linux/anyhow-sgx" }
-base64       = { git = "https://github.com/mesalock-linux/rust-base64-sgx"}
+base64       = { git = "https://github.com/mesalock-linux/rust-base64-sgx" }
 bit-vec      = { version = "0.6.1", default-features = false }
 cfg-if       = { version = "0.1.9" }
 chrono       = { git = "https://github.com/mesalock-linux/chrono-sgx" }
@@ -29,16 +29,15 @@ thiserror    = { git = "https://github.com/mesalock-linux/thiserror-sgx" }
 uuid         = { git = "https://github.com/mesalock-linux/uuid-sgx", features = ["v4"] }
 webpki       = { git = "https://github.com/mesalock-linux/webpki", branch = "mesalock_sgx" }
 webpki-roots = { git = "https://github.com/mesalock-linux/webpki-roots", branch = "mesalock_sgx" }
-yasna        = { git = "https://github.com/mesalock-linux/yasna.rs-sgx" features = ["bit-vec", "num-bigint", "chrono"] }
+yasna        = { git = "https://github.com/mesalock-linux/yasna.rs-sgx", features = ["bit-vec", "num-bigint", "chrono"] }
 
-sgx_rand    = { git = "https://github.com/apache/teaclave-sgx-sdk", version = "1.1.0", optional = true }
-sgx_tcrypto = { git = "https://github.com/apache/teaclave-sgx-sdk", version = "1.1.0", optional = true }
-sgx_tse     = { git = "https://github.com/apache/teaclave-sgx-sdk", version = "1.1.0", optional = true }
-sgx_tstd    = { git = "https://github.com/apache/teaclave-sgx-sdk", version = "1.1.0", features = ["net", "backtrace"], optional = true }
-sgx_types   = { git = "https://github.com/apache/teaclave-sgx-sdk", version = "1.1.0" }
+sgx_rand    = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0", optional = true }
+sgx_tcrypto = { rev = "v1.1.0",  git = "https://github.com/apache/teaclave-sgx-sdk", optional = true}
+sgx_tse     = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0", optional = true }
+sgx_tstd    = { rev = "v1.1.0",  git = "https://github.com/apache/teaclave-sgx-sdk", features = ["net", "backtrace"], optional = true }
+sgx_types = { rev = "v1.1.0", git = "https://github.com/apache/teaclave-sgx-sdk" }
 
 serde        = { git = "https://github.com/mesalock-linux/serde-sgx" }
 serde_derive = { git = "https://github.com/mesalock-linux/serde-sgx" }
-
 
 teaclave_utils  = { path = "../teaclave_utils" }

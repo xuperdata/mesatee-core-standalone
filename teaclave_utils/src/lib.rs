@@ -6,7 +6,6 @@ use std::prelude::v1::*;
 
 use serde::Deserializer;
 use serde_derive::Deserialize;
-use std::collections::HashMap;
 
 use std::error::Error;
 use std::fmt;
@@ -107,7 +106,8 @@ where
 
 #[derive(Debug, Deserialize)]
 #[serde(transparent)]
-struct EnclaveInfoToml(HashMap<String, EnclaveMeasurement>);
+struct EnclaveInfoToml(std::collections::HashMap<String, EnclaveMeasurement>);
+
 
 #[derive(Debug, Deserialize, Copy, Clone, Eq, PartialEq)]
 pub struct EnclaveMeasurement {
