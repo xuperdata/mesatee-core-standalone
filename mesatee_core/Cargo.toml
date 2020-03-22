@@ -45,5 +45,6 @@ sgx_rand  =   { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.
 sgx_tse   =   { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0", optional = true }
 
 teaclave_utils = { path = "../teaclave_utils" }
+teaclave_config = { path = "../teaclave_config" }
 ipc_attribute = { path = "./ipc_attribute" }
 teaclave_attestation = { path = "../teaclave_attestation" }

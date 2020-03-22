@@ -129,8 +129,6 @@ mod tests {
 
     #[test]
     fn test_runtime_config() {
-        println!("{:?}", runtime_config::RUNTIME_CONFIG.audit);
-        println!("{:?}", runtime_config::RUNTIME_CONFIG.env);
     }
 
     #[test]

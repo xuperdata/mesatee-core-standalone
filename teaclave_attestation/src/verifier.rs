@@ -18,45 +18,8 @@
 use crate::quote::SgxQuote;
 use std::hash::{Hash, Hasher};
 use std::vec::Vec;
+use teaclave_config::build_config::BUILD_CONFIG;
 use teaclave_utils::EnclaveMeasurement;
-
-use serde_derive::Deserialize;
-use serde_derive::Serialize;
-use std::path::PathBuf;
-use std::env;
-use std::string::{String, ToString};
-
-
-#[cfg(not(feature = "mesalock_sgx"))]
-use std::fs;
-#[cfg(feature = "mesalock_sgx")]
-use std::prelude::v1::*;
-#[cfg(feature = "mesalock_sgx")]
-use std::untrusted::fs;
-
-// TODO
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all(serialize = "snake_case", deserialize = "snake_case"))]
-enum ConfigSource {
-    Path(PathBuf),
-}
-fn display_config_source(config: &ConfigSource) -> String {
-    match config {
-        ConfigSource::Path(p) => {
-            let content = &fs::read(p).expect(&format!("Failed to read file: {}", p.display()));
-            let mut output = String::new();
-            output.push_str("&[");
-            for b in content {
-                output.push_str(&format!("{}, ", b));
-            }
-            output.push_str("]");
-
-            output
-        }
-    }
-}
-
-const IAS_ROOT_CA_CERT_PATH: &'static str = "/var/mesatee/ias_root_ca_cert.pem";
 
 #[derive(Clone)]
 pub struct EnclaveAttr {
@@ -82,7 +45,6 @@ impl Hash for EnclaveAttr {
 pub struct SgxQuoteVerifier {
     pub enclave_attr: EnclaveAttr,
     pub verifier: fn(&SgxQuote) -> bool,
-    ias_root_ca_cert: String,
 }
 
 impl PartialEq for SgxQuoteVerifier {
@@ -106,12 +68,9 @@ fn universal_quote_verifier(quote: &SgxQuote) -> bool {
 
 impl SgxQuoteVerifier {
     pub fn new(enclave_attr: EnclaveAttr) -> Self {
-        let target = env::var("IAS_ROOT_CA_CERT_PATH").unwrap_or(IAS_ROOT_CA_CERT_PATH.to_string());
-	let config_path = ConfigSource::Path(PathBuf::from(target));
         Self {
             enclave_attr,
             verifier: universal_quote_verifier,
-  	    ias_root_ca_cert: display_config_source(&config_path), 
         }
     }
 
@@ -130,7 +89,7 @@ impl SgxQuoteVerifier {
             return true;
         }
 
-        let quote = match SgxQuote::extract_verified_quote(&cert_der, self.ias_root_ca_cert.as_bytes())
+        let quote = match SgxQuote::extract_verified_quote(&cert_der, BUILD_CONFIG.ias_root_ca_cert)
         {
             Ok(quote) => quote,
             Err(_) => {

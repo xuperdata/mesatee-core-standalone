@@ -31,7 +31,7 @@ use lazy_static::lazy_static;
 
 use crate::{Error, ErrorKind, Result};
 
-//use crate::config::runtime_config;
+use crate::config::runtime_config;
 use teaclave_attestation;
 
 lazy_static! {
@@ -133,13 +133,10 @@ impl RACredential {
         let report = if cfg!(sgx_sim) {
             teaclave_attestation::IasReport::default()
         } else {
- 	    use std::env;
-            let ias_key = env::var("IAS_SPID").expect("Please setenv IAS_SPID");
-            let ias_spid = env::var("IAS_KEY").expect("Please setenv IAS_KEY");
             match teaclave_attestation::IasReport::new(
                 key_pair.pub_k,
-                &ias_key,
-                &ias_spid,
+		&runtime_config().env.ias_key,
+                &runtime_config().env.ias_spid,
                 false,
             ) {
                 Ok(r) => r,

@@ -39,5 +39,5 @@ sgx_types = { rev = "v1.1.0", git = "https://github.com/apache/teaclave-sgx-sdk"
 
 serde        = { git = "https://github.com/mesalock-linux/serde-sgx" }
 serde_derive = { git = "https://github.com/mesalock-linux/serde-sgx" }
-
+teaclave_config = { path = "../teaclave_config" }
 teaclave_utils  = { path = "../teaclave_utils" }
