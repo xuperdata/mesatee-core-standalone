@@ -19,6 +19,7 @@
 // we cannot use the &'static str in this struct.
 
 use std::collections::HashMap;
+use std::net::SocketAddr;
 use std::prelude::v1::*;
 use teaclave_attestation;
 use teaclave_attestation::verifier::EnclaveAttr;
@@ -27,6 +28,42 @@ use teaclave_config::runtime_config::RuntimeConfig;
 use teaclave_utils::EnclaveMeasurement;
 
 use lazy_static::lazy_static;
+
+#[derive(Clone)]
+pub struct TargetDesc {
+    pub addr: SocketAddr,
+    pub desc: OutboundDesc,
+}
+
+impl TargetDesc {
+    pub fn new(addr: SocketAddr, desc: OutboundDesc) -> TargetDesc {
+        TargetDesc { addr, desc }
+    }
+}
+
+#[derive(Clone)]
+pub enum InboundDesc {
+    Sgx(EnclaveAttr),
+    External,
+}
+
+#[derive(Clone)]
+pub enum OutboundDesc {
+    Sgx(EnclaveAttr),
+}
+
+impl OutboundDesc {
+    pub fn default() -> OutboundDesc {
+        OutboundDesc::Sgx(get_trusted_enclave_attr(vec!["fns"]))
+    }
+
+    pub fn new(measures: EnclaveMeasurement) -> OutboundDesc {
+        OutboundDesc::Sgx(EnclaveAttr {
+            measures: vec![measures],
+        })
+    }
+}
+
 
 fn load_presigned_enclave_info() -> HashMap<String, EnclaveMeasurement> {
     if runtime_config().audit.auditor_signatures.len() < BUILD_CONFIG.auditor_public_keys.len() {

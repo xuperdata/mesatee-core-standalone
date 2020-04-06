@@ -1,0 +1,52 @@
+[package]
+name = "kms_proto"
+version = "0.1.0"
+authors = ["MesaTEE Authors <developers@mesatee.org>"]
+description = "RPC protocol of KMS."
+license = "Apache-2.0"
+edition = "2018"
+
+[features]
+default = []
+mesalock_sgx = ["sgx_tstd", "mesatee_core/mesalock_sgx"]
+cov = ["sgx_cov"]
+
+[dependencies]
+#prost = { version = "0.5.0" }
+#bytes = { version = ">= 0.4.12"} # unix app depends on 0.4.12, while sgx lib depends on 0.5.0
+mesatee_core    = { path = "../../../mesatee_core" }
+cfg-if       = { version = "0.1.9" }
+#serde        = { version = "1.0.39" }
+#serde_json   = { version = "1.0.39" }
+#serde_derive = { version = "1.0.92" }
+#rand         = { version = "0.7.0" }
+#base64       = { version = "0.10.1" }
+#
+#mesatee_core = { version = "0.1.0" }
+#sgx_cov      = { version = "1.1.0", optional = true }
+#sgx_tstd     = { version = "1.1.0", features = ["net", "backtrace"], optional = true }
+#sgx_types    = { version = "1.1.0" }
+
+#prost = { git = "https://github.com/mesalock-linux/prost-sgx", tag = "sgx_1.1.0" }
+#prost-types = { git = "https://github.com/mesalock-linux/prost-sgx", tag = "sgx_1.1.0"}
+
+prost       = { path = "../../../3rd/prost-sgx" } 
+prost-types = { path = "../../../3rd/prost-sgx/prost-types" } 
+
+
+bytes = { git = "https://github.com/mesalock-linux/bytes-sgx", tag="sgx_1.1.0"}
+serde = { git = "https://github.com/mesalock-linux/serde-sgx", tag="sgx_1.1.0"}
+serde_derive = { git = "https://github.com/mesalock-linux/serde-sgx", tag="sgx_1.1.0" }
+
+#serde_json = { git = "https://github.com/mesalock-linux/serde-json-sgx", tag="sgx_1.1.0"}
+serde_json = { path = "../../../3rd/serde-json-sgx" }
+
+#rand = { git = "https://github.com/mesalock-linux/rand-sgx", tag="sgx_1.1.0" }
+rand = { path = "../../../3rd/rand-sgx" }
+base64 = { git = "https://github.com/mesalock-linux/rust-base64-sgx", tag="sgx_1.1.0"}
+
+
+sgx_cov   = { git = "https://github.com/apache/teaclave-sgx-sdk", rev="v1.1.0", optional = true}
+sgx_tstd  = { git = "https://github.com/apache/teaclave-sgx-sdk", rev="v1.1.0", features = ["net", "backtrace"], optional = true}
+sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk", rev="v1.1.0"}
+
