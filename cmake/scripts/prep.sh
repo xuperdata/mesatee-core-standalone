@@ -8,7 +8,6 @@ REQUIRED_ENVS=("CMAKE_SOURCE_DIR" "CMAKE_BINARY_DIR"
 "MESATEE_LIB_INSTALL_DIR" "MESATEE_TEST_INSTALL_DIR"
 "MESATEE_AUDITORS_DIR" "MESATEE_EXAMPLE_AUDITORS_DIR"
 )
-echo "duanbing xxxxxxxxxxxx\n"
 
 for var in "${REQUIRED_ENVS[@]}"; do
     [ -z "${!var}" ] && echo "Please set ${var}" && exit -1
@@ -27,9 +26,7 @@ mkdir -p /tmp/mesatee_symlinks
 ln -snf ${HOME}/.cargo /tmp/mesatee_symlinks/cargo_home
 ln -snf ${CMAKE_SOURCE_DIR} /tmp/mesatee_symlinks/mesatee_src
 ln -snf ${CMAKE_BINARY_DIR} /tmp/mesatee_symlinks/mesatee_build
-echo "duanbing xxxxxxxxxxxx 222\n"
 if git submodule status | egrep -q '^[-]|^[+]'; then echo 'INFO: Need to reinitialize git submodules' && git submodule update --init --recursive; fi
-echo "duanbing xxxxxxxxxxxx ${RUSTUP_TOOLCHAIN}\n"
 #rustup install --no-self-update ${RUSTUP_TOOLCHAIN} > /dev/null 2>&1
 rustup install --no-self-update ${RUSTUP_TOOLCHAIN}
 # get mesapy
