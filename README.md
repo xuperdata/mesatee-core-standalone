@@ -3,10 +3,24 @@ A standalone mesatee-core aims to provide a lightweight, efficient TCP-based RPC
 
 # Quick Start
 
+## Compile
+```
+git clone https://github.com/xuperdata/mesatee-core-standalone
+cd mesatee-core-standalone
+docker run --name core3 --net=host -v$(pwd):/teaclave -w /teaclave -it teaclave/teaclave-build-ubuntu-1804:latest bash
+mkdir -p build && cd build
+cmake -DTEST_MODE=ON .. && make
+```
+
+## Test
 ```
 export IAS_SPID=xxxx
 export IAS_KEY=xxx
-```
 
+```
 TBD...
+
+# TODO
+1. mesatee_services renaming to example
+2. remove runtime config
  
