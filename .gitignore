@@ -1,0 +1,15 @@
+**/Cargo.lock
+**/target
+**/*.o
+**/*.pyc
+**/*.a
+**/*.so
+**/*.swp
+**/.DS_Store
+cov.info
+cov_report
+/**/pkg_name
+.vscode/*
+# ignore the build dir which usually for cmake
+/build
+/release
