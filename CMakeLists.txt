@@ -37,6 +37,7 @@ endif()
 #    CARGO_TOML_PATH ${PROJECT_SOURCE_DIR}/cmake/tomls/Cargo.unix_app.toml
 #    CATEGORIES UNIX_APP_CATEGORIES
 #)
+message(WARNING, ${CARGO_TOML_PATH}${PROJECT_SOURCE_DIR}/cmake/tomls/Cargo.unix_app.toml)
 
 parse_cargo_packages(SGX_APPS
     CARGO_TOML_PATH ${PROJECT_SOURCE_DIR}/cmake/tomls/Cargo.sgx_untrusted_app.toml

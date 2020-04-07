@@ -4,6 +4,9 @@
 # and for those to exclude from cmake build, just append the '# ignore'
 # annotation suffix
 members = [
+  "mesatee_sdk", # ignore
+  "mesatee_sdk/c_sdk", # ignore
+  "teaclave_common/protected_fs_rs", # ignore 
 ]
 
 exclude = [
