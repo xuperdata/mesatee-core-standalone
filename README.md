@@ -21,6 +21,8 @@ export IAS_KEY=xxx
 TBD...
 
 # TODO
-1. mesatee_services renaming to example
+0. add simple client
+1. rename mesatee_services to example
 2. remove runtime config
+
  
