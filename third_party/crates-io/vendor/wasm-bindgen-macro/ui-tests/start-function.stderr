@@ -1,0 +1,11 @@
+error: the start function cannot have arguments
+ --> $DIR/start-function.rs:7:13
+  |
+7 | pub fn foo2(x: u32) {}
+  |             ^^^^^^
+
+error: the start function cannot have generics
+  --> $DIR/start-function.rs:10:12
+   |
+10 | pub fn foo3<T>() {}
+   |            ^^^

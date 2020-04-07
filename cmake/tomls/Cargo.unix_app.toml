@@ -1,0 +1,20 @@
+[workspace]
+
+# every member should take its own line,
+# and for those to exclude from cmake build, just append the '# ignore'
+# annotation suffix
+members = [
+]
+
+exclude = [
+  "mesatee_core",
+]
+
+[patch.crates-io]
+# mesatee_core
+mesatee_core = { path = "./mesatee_core" }
+
+# We cannot remove these crates, because proto crates depend on them
+sgx_cov = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
+sgx_urts = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
+sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }

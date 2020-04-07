@@ -1,0 +1,71 @@
+kind: pipeline
+name: sgx-minimal
+
+steps:
+- name: submodules
+  image: docker:git
+  commands:
+  - git submodule update --recursive --init
+  - git checkout -b temp-branch-name # make a temp branch name to work around a issue in building process
+
+- name: build-mesapy-sgx-minimal
+  image: mesapy/build-mesapy:sgx
+  pull: always
+  commands:
+  - make sgx_minimal
+
+node:
+  instance: sgx
+
+---
+
+kind: pipeline
+name: sgx
+
+steps:
+- name: submodules
+  image: docker:git
+  commands:
+  - git submodule update --recursive --init
+  - git checkout -b temp-branch-name # make a temp branch name to work around a issue in building process
+
+- name: build-mesapy-sgx
+  image: mesapy/build-mesapy:sgx
+  pull: always
+  commands:
+  - make sgx
+
+- name: test
+  image: mesapy/build-mesapy:sgx
+  pull: always
+  commands:
+  - . /opt/sgxsdk/environment
+  - /start_aesm_service.sh
+  - make -C sgx/tests build
+  - make -C sgx/examples
+
+- name: deploy
+  image: mesapy/build-mesapy:sgx
+  commands:
+  - apt-get update
+  - apt-get install -q -y sshpass
+  - mkdir release && cp pypy/goal/libpypy-c.a sgx/libffi/build_dir/lib/libffi.a sgx/sgx_tlibc_ext/libsgx_tlibc_ext.a sgx/sgx_ulibc/libsgx_ulibc.a sgx/examples/exec/Enclave/src/ffi.o release/
+  - tar czvf mesapy-sgx.tar.gz -C release .
+  - sshpass -p "$PASSWORD" scp -o StrictHostKeyChecking=no mesapy-sgx.tar.gz "$USERNAME"@"$HOSTNAME":"$TARGET_PATH"/"$DRONE_COMMIT_SHA"-mesapy-sgx.tar.gz
+  environment:
+    USERNAME:
+      from_secret: username
+    PASSWORD:
+      from_secret: password
+    HOSTNAME:
+      from_secret: hostname
+    TARGET_PATH:
+      from_secret: target_path
+  when:
+    event:
+    - push
+    branch:
+    - sgx
+
+node:
+  instance: sgx

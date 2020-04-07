@@ -1,0 +1,15 @@
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source."https://github.com/apache/teaclave-sgx-sdk"]
+git = "https://github.com/apache/teaclave-sgx-sdk"
+rev = "v1.1.0"
+replace-with = "vendored-sources"
+
+[source."https://github.com/mesalock-linux/sgx-fake-profiler-builtins"]
+git = "https://github.com/mesalock-linux/sgx-fake-profiler-builtins"
+branch = "master"
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"

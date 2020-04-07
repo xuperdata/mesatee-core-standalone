@@ -1,0 +1,22 @@
+language: rust
+os:
+  - linux
+  - osx
+  - windows
+rust:
+  - stable
+  - nightly
+matrix:
+  include:
+    - rust: stable
+      env: FLAGS="--no-default-features"
+    - rust: nightly
+      env: FLAGS="-Z minimal-versions"
+  allow_failures:
+    - rust: nightly
+      env: FLAGS="-Z minimal-versions"
+
+script:
+  - cargo build -v $FLAGS
+  - cargo doc -v $FLAGS
+  - cargo test -v $FLAGS

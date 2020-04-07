@@ -14,8 +14,8 @@ path = "src/lib.rs"
 default = ["mesatee_core/ipc"]
 
 [dependencies]
-sgx_urts = "1.1.0" 
-sgx_types = "1.1.0" 
+sgx_urts   =  "1.1.0" 
+sgx_types  =  "1.1.0" 
 
 mesatee_core = { path = "../mesatee_core", features = ["ipc"]}
 
