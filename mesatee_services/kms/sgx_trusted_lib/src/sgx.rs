@@ -41,14 +41,16 @@ fn handle_serve_connection(args: &ServeConnectionInput) -> Result<ServeConnectio
 
     // TODO 设置为配置
     let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), args.port);
+
+    /*
     // 验证访问我的enclave的信息, 如果没有跨encalve访问的话，这里就不用填写
     let inbound_desc =  config::InboundDesc::Sgx(get_trusted_enclave_attr(vec![]));     
 
     let enclave_attr = match inbound_desc {
         config::InboundDesc::Sgx(enclave_attr) => Some(enclave_attr),
         _ => unreachable!(),
-    };
-    let server = match SgxTrustedServer::new(KMSEnclave::default(), args.socket_fd, enclave_attr) {
+    };*/
+    let server = match SgxTrustedServer::new(KMSEnclave::default(), args.socket_fd, None) {
         Ok(s) => s,
         Err(e) => {
             error!("New server failed: {:?}.", e);
