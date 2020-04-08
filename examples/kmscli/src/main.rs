@@ -5,7 +5,7 @@ use std::net::SocketAddr;
 use std::path::PathBuf;
 
 lazy_static! {
-    static ref KMS_ADDR: SocketAddr = "127.0.0.1:8080".parse().unwrap();
+    static ref KMS_ADDR: SocketAddr = "127.0.0.1:8081".parse().unwrap();
 }
 
 #[derive(Debug, StructOpt)]

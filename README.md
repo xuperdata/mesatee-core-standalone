@@ -22,7 +22,10 @@ export CARGO_PKG_NAME=kms
 ./kms
 ```
 
-Open another terminal, and run `./release/examples/kmscli`
+Open another terminal, and run
+```
+./kmscli kms -e ./enclave_info.toml
+```
 
 # TODO
 1. rename mesatee_services to example
