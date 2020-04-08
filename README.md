@@ -17,11 +17,14 @@ cmake -DTEST_MODE=ON .. && make
 export IAS_SPID=xxxx
 export IAS_KEY=xxx
 
+cd mesatee-core-standalone/release/services
+export CARGO_PKG_NAME=kms
+./kms
 ```
-TBD...
+
+Open another terminal, and run `./release/examples/kmscli`
 
 # TODO
-0. add simple client
 1. rename mesatee_services to example
 2. remove runtime config
 
