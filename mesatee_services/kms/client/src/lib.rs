@@ -14,18 +14,11 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+
+// Use sgx_tstd to replace Rust's default std
 #![cfg_attr(feature = "mesalock_sgx", no_std)]
 #[cfg(feature = "mesalock_sgx")]
-#[macro_use]
 extern crate sgx_tstd as std;
 
-#[cfg(feature = "mesalock_sgx")]
-use std::prelude::v1::*;
-
-mod kms;
-pub use kms::*;
-
-pub mod proto {
-    #![allow(clippy::all)]
-    include!(concat!(env!("OUT_DIR"), "/kms_proto.rs"));
-}
+mod kms_client;
+pub use crate::kms_client::KMSClient;

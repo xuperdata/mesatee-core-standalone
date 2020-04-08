@@ -29,14 +29,14 @@ endif()
 # ======= VARIABLES FOR CMAKE -D{VAR}=VAL CONFIGURATION END =======
 
 # =============== VARIABLES FOR MANUAL CHANGE BEGIN ===============
-#set(UNIX_LIBS mesatee_sdk protected_fs_rs)
+set(UNIX_LIBS mesatee_sdk protected_fs_rs)
 # ================ VARIABLES FOR MANUAL CHANGE END ================
 
 # UNIX_APPS, SGX_APPS and SGX_LIBS are parsed from corresponding toml files
-#parse_cargo_packages(UNIX_APPS
-#    CARGO_TOML_PATH ${PROJECT_SOURCE_DIR}/cmake/tomls/Cargo.unix_app.toml
-#    CATEGORIES UNIX_APP_CATEGORIES
-#)
+parse_cargo_packages(UNIX_APPS
+    CARGO_TOML_PATH ${PROJECT_SOURCE_DIR}/cmake/tomls/Cargo.unix_app.toml
+    CATEGORIES UNIX_APP_CATEGORIES
+)
 message(WARNING, ${CARGO_TOML_PATH}${PROJECT_SOURCE_DIR}/cmake/tomls/Cargo.unix_app.toml)
 
 parse_cargo_packages(SGX_APPS
@@ -61,20 +61,20 @@ generate_env_file()
 include(UtilTargets)
 
 # unix_app
-#list(LENGTH UNIX_APPS UNIX_APP_LEN)
-#math(EXPR UNIX_APP_LAST_INDEX "${UNIX_APP_LEN} - 1")
-#foreach(_i RANGE ${UNIX_APP_LAST_INDEX})
-#    list(GET UNIX_APPS ${_i} _pkg_name)
-#    list(GET UNIX_APP_CATEGORIES ${_i} _category)
-#    add_cargo_build_target(${_pkg_name}
-#        TARGET_NAME "${UNIXAPP_PREFIX}-${_pkg_name}"
-#        TOML_DIR ${MT_UNIX_TOML_DIR}
-#        TARGET_DIR ${UNIX_TARGET_DIR}
-#        INSTALL_DIR ${MESATEE_INSTALL_DIR}/${_category}
-#        EXTRA_CARGO_FLAGS ${EXTRA_CARGO_FLAGS}
-#        DEPENDS prep
-#    )
-#endforeach()
+list(LENGTH UNIX_APPS UNIX_APP_LEN)
+math(EXPR UNIX_APP_LAST_INDEX "${UNIX_APP_LEN} - 1")
+foreach(_i RANGE ${UNIX_APP_LAST_INDEX})
+    list(GET UNIX_APPS ${_i} _pkg_name)
+    list(GET UNIX_APP_CATEGORIES ${_i} _category)
+    add_cargo_build_target(${_pkg_name}
+        TARGET_NAME "${UNIXAPP_PREFIX}-${_pkg_name}"
+        TOML_DIR ${MT_UNIX_TOML_DIR}
+        TARGET_DIR ${UNIX_TARGET_DIR}
+        INSTALL_DIR ${MESATEE_INSTALL_DIR}/${_category}
+        EXTRA_CARGO_FLAGS ${EXTRA_CARGO_FLAGS}
+        DEPENDS prep
+    )
+endforeach()
 
 # sgx_untrusted_app
 list(LENGTH SGX_APPS SGX_APP_LEN)

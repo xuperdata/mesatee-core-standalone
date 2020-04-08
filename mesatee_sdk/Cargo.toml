@@ -1,0 +1,13 @@
+[package]
+name = "mesatee_sdk"
+version = "0.1.0"
+authors = ["MesaTEE Authors <developers@mesatee.org>"]
+description = "Client SDK, applications can utilize it to invoke MesaTEE services."
+license = "Apache-2.0"
+edition = "2018"
+
+[dependencies]
+kms_client           = { path = "../mesatee_services/kms/client" }
+kms_proto    	     = { path = "../mesatee_services/kms/proto" }
+mesatee_core         = { path = "../mesatee_core" }
+teaclave_utils       = { path = "../teaclave_utils" }

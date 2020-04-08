@@ -211,6 +211,7 @@ endfunction()
 function(gen_convenience_targets)
     # add a target with the same name for each unix_module
     foreach(unix_module ${UNIX_APPS})
+        message(WARNING, ${unix_module})
         add_custom_target(${unix_module}
             DEPENDS ${UNIXAPP_PREFIX}-${unix_module}
         )
@@ -218,6 +219,7 @@ function(gen_convenience_targets)
 
     # add a target with the same name for each sgx_module (build sgxlib+sgxapp)
     foreach(sgx_module ${SGX_MODULES})
+        message(WARNING, ${sgx_module})
         add_custom_target(${sgx_module}
             DEPENDS ${SGXAPP_PREFIX}-${sgx_module} ${SGXLIB_PREFIX}-${sgx_module}
         )
