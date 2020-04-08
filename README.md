@@ -24,6 +24,7 @@ export CARGO_PKG_NAME=kms
 
 Open another terminal, and run
 ```
+cd mesatee-core-standalone/release/examples
 ./kmscli kms -e ./enclave_info.toml
 ```
 
