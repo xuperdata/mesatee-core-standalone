@@ -12,7 +12,10 @@ mkdir -p build && cd build
 cmake -DTEST_MODE=ON .. && make
 ```
 
-## Test
+## Have a try 
+
+There is a demo KMS(Key Managerment Service) in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianry, `kms` and `kmscli`. 
+
 ```
 export IAS_SPID=xxxx
 export IAS_KEY=xxx
@@ -27,9 +30,6 @@ Open another terminal, and run
 cd mesatee-core-standalone/release/examples
 ./kmscli kms -e ./enclave_info.toml
 ```
-
-# TODO
-1. rename mesatee_services to example
-2. remove runtime config
-
  
+## Community 
+This library is maintained by members from XuperChain Team and Mesatee Team collaboratively. Also this lib will largely enable the multiple-parties confidential computing on blockchain. 
