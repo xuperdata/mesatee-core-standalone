@@ -19,12 +19,9 @@
 #[cfg(feature = "mesalock_sgx")]
 use std::prelude::v1::*;
 
-use std::net::{IpAddr, Ipv4Addr, SocketAddr};
-use mesatee_core::config;
 use mesatee_core::prelude::*;
 use mesatee_core::rpc::server::SgxTrustedServer;
 use mesatee_core::Result;
-use mesatee_core::config::{get_trusted_enclave_attr};
 
 use crate::kms::KMSEnclave;
 

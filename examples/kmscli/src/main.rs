@@ -26,7 +26,6 @@ enum Command {
 struct KMSOpt {
     #[structopt(short = "e", required = true)]
     enclave_info: PathBuf,
-    message: String,
 }
 
 fn run(args: KMSOpt) {
@@ -37,7 +36,7 @@ fn run(args: KMSOpt) {
     let req = CreateKeyRequest::new(kms_proto::EncType::ProtectedFs);
     let create_request = KMSRequest::CreateKey(req);
     let request = serde_json::to_string(&create_request).unwrap();    
-    let task = mesatee.create_task(&args.message).expect("create");
+    let task = mesatee.create_task("create_task").expect("create");
     let response = task.invoke_with_payload(&request).expect("invoke");
     println!("{:?}", response);
 }

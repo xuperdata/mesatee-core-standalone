@@ -24,7 +24,7 @@ use serde_json;
 
 use kms_proto::proto::{
     CreateKeyRequest, CreateKeyResponse, DeleteKeyRequest, DeleteKeyResponse, GetKeyRequest,
-    GetKeyResponse, KMSRequest, KMSResponse, KMSService,
+    GetKeyResponse, KMSRequest, KMSService,
 };
 use kms_proto::{AEADKeyConfig, EncType, KeyConfig};
 
