@@ -1,5 +1,4 @@
 use kms_client::KMSClient;
-use kms_proto;
 use mesatee_core::config::{OutboundDesc, TargetDesc};
 pub use mesatee_core::{Error, ErrorKind, Result};
 use std::fs;
@@ -11,7 +10,7 @@ use teaclave_utils;
 pub struct Mesatee {
     user_id: String,
     user_token: String,
-    kms_desc: TargetDesc,
+    task_desc: TargetDesc,
 }
 
 pub struct MesateeEnclaveInfo {
@@ -61,20 +60,58 @@ impl Mesatee {
                 .get("kms")
                 .ok_or_else(|| Error::from(ErrorKind::MissingValue))?,
         );
-        let kms_desc = TargetDesc::new(kms_addr, tms_outbound_desc);
+        let task_desc = TargetDesc::new(kms_addr, tms_outbound_desc);
 
         let mesatee = Self {
             user_id: user_id.to_owned(),
             user_token: user_token.to_owned(),
-            kms_desc,
+            task_desc,
         };
         Ok(mesatee)
     }
-
+/*
     pub fn create_key(&self) -> Result<kms_proto::proto::CreateKeyResponse> {
-        let mut kms_client = KMSClient::new(&self.kms_desc, &self.user_id, &self.user_token)?;
+        let mut kms_client = KMSClient::new(&self.task_desc, &self.user_id, &self.user_token)?;
         let resp = kms_client.create_key();
         println!("mesatee kms create_key: {:?}", resp);
 	resp
+    }
+*/
+    pub fn create_task(&self, function_name: &str) -> Result<MesateeTask> {
+        self._create_task(function_name)
+    }
+    
+    pub fn _create_task(&self, function_name: &str) -> Result<MesateeTask>{
+        Ok(MesateeTask {
+            task_id: uuid::Uuid::new_v4().to_string(),
+            function_name: function_name.to_owned(),
+	    task_desc: Some(self.task_desc.clone()),
+        })
+    }
+}
+
+pub struct MesateeTask {
+    pub task_id: String,
+    pub function_name: String,
+    task_desc: Option<TargetDesc>,
+}
+
+impl MesateeTask {
+    pub fn invoke_with_payload(&self, payload: &str) -> Result<String> {
+        self._invoke(Some(payload))
+    }
+
+    fn _invoke(&self, payload: Option<&str>) -> Result<String> {
+        let desc = self
+            .task_desc
+            .as_ref()
+            .ok_or_else(|| Error::from(ErrorKind::MissingValue))?;
+        let mut kms_client = KMSClient::new(desc)?;
+        let response = kms_client.invoke_task(
+            &self.task_id,
+            &self.function_name,
+            payload,
+        )?;
+        Ok(response.result)
     }
 }

@@ -106,4 +106,12 @@ foreach(_i RANGE ${SGX_LIB_LAST_INDEX})
     )
 endforeach()
 
+# MesaTEE C SDK
+add_cargo_build_dylib_target(mesatee_sdk_c
+    TARGET_NAME "${UNIXLIB_PREFIX}-mesatee_sdk_c"
+    TOML_DIR ${MT_UNIX_TOML_DIR}
+    TARGET_DIR ${UNIX_TARGET_DIR}
+    DEPENDS prep
+)
+
 add_enclave_sig_target_n_hooks()

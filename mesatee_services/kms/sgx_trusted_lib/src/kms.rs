@@ -20,12 +20,16 @@
 use std::prelude::v1::*;
 
 use uuid::Uuid;
+use serde_json;
 
 use kms_proto::proto::{
     CreateKeyRequest, CreateKeyResponse, DeleteKeyRequest, DeleteKeyResponse, GetKeyRequest,
     GetKeyResponse, KMSRequest, KMSResponse, KMSService,
 };
 use kms_proto::{AEADKeyConfig, EncType, KeyConfig};
+
+use kms_proto::{InvokeTaskResponse, InvokeTaskRequest};
+
 use lazy_static::lazy_static;
 use mesatee_core::db::Memdb;
 use mesatee_core::rpc::EnclaveService;
@@ -58,7 +62,7 @@ impl<S, T> Default for KMSEnclave<S, T> {
     }
 }
 
-impl KMSService for KMSEnclave<KMSRequest, KMSResponse> {
+impl KMSService for KMSEnclave<InvokeTaskRequest, InvokeTaskResponse> {
     fn get_key(req: GetKeyRequest) -> mesatee_core::Result<GetKeyResponse> {
         let key_config = KEY_STORE
             .get(&req.key_id)?
@@ -88,10 +92,14 @@ impl KMSService for KMSEnclave<KMSRequest, KMSResponse> {
     }
 }
 
-impl EnclaveService<KMSRequest, KMSResponse> for KMSEnclave<KMSRequest, KMSResponse> {
-    fn handle_invoke(&mut self, input: KMSRequest) -> Result<KMSResponse> {
+impl EnclaveService<InvokeTaskRequest, InvokeTaskResponse> for KMSEnclave<InvokeTaskRequest, InvokeTaskResponse> {
+    fn handle_invoke(&mut self, input: InvokeTaskRequest) -> Result<InvokeTaskResponse> {
         trace!("handle_invoke invoked!");
         trace!("incoming payload = {:?}", input);
-        self.dispatch(input)
+        let payload = input.payload.unwrap();
+        let kms_request: KMSRequest = serde_json::from_str(&payload)?; 
+        let kms_response = self.dispatch(kms_request);
+        let res = serde_json::to_string(&kms_response)?;
+        Ok(InvokeTaskResponse::new(&res))
     }
 }

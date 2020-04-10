@@ -14,21 +14,19 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-#![cfg_attr(feature = "mesalock_sgx", no_std)]
-#[cfg(feature = "mesalock_sgx")]
-#[macro_use]
-extern crate sgx_tstd as std;
 
-#[cfg(feature = "mesalock_sgx")]
-use std::prelude::v1::*;
+#ifndef MESATEE_VISIBILITY_H
+#define MESATEE_VISIBILITY_H
 
-mod task;
-pub use task::*;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-mod kms;
-pub use kms::*;
+#define MESATEE_API __attribute__((visibility("default")))
+#define MESATEE_LOCAL __attribute__((visiblity("hidden")))
 
-pub mod proto {
-    #![allow(clippy::all)]
-    include!(concat!(env!("OUT_DIR"), "/kms_proto.rs"));
-}
+#ifdef __cplusplus
+} /* extern C */
+#endif
+
+#endif // MESATEE_VISIBILITY_H

@@ -11,3 +11,4 @@ kms_client           = { path = "../mesatee_services/kms/client" }
 kms_proto    	     = { path = "../mesatee_services/kms/proto" }
 mesatee_core         = { path = "../mesatee_core" }
 teaclave_utils       = { path = "../teaclave_utils" }
+uuid                 = { version = "0.7.4", features = ["v4"] }

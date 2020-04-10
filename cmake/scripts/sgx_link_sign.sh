@@ -35,7 +35,6 @@ ${CMAKE_C_COMPILER} libEnclave_t.o -o \
     -Wl,--gc-sections \
     -Wl,--version-script=${MESATEE_PROJECT_ROOT}/cmake/scripts/Enclave.lds
 
-echo "duanbing xxxxx333\n"
 ${SGX_ENCLAVE_SIGNER} sign -key ${MESATEE_PROJECT_ROOT}/keys/enclave_signing_key.pem \
     -enclave ${CUR_PKG_NAME}.so \
     -out ${CUR_INSTALL_DIR}/${CUR_PKG_NAME}.signed.so \

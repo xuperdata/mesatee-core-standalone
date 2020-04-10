@@ -39,10 +39,10 @@ register_ecall_handler!(
 fn handle_serve_connection(args: &ServeConnectionInput) -> Result<ServeConnectionOutput> {
     debug!("Enclave [KMS]: Serve Connection.");
 
+    /*
     // TODO 设置为配置
     let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), args.port);
 
-    /*
     // 验证访问我的enclave的信息, 如果没有跨encalve访问的话，这里就不用填写
     let inbound_desc =  config::InboundDesc::Sgx(get_trusted_enclave_attr(vec![]));     
 

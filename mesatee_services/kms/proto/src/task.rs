@@ -14,41 +14,44 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
-// Insert std prelude in the top for the sgx feature
 #[cfg(feature = "mesalock_sgx")]
 use std::prelude::v1::*;
 
-use kms_proto::*;
-use mesatee_core::config::{OutboundDesc, TargetDesc};
-use mesatee_core::rpc::channel::SgxTrustedChannel;
-use mesatee_core::Result;
+use serde_derive::*;
 
-pub struct KMSClient {
-    channel: SgxTrustedChannel<InvokeTaskRequest, InvokeTaskResponse>,
+#[derive(Clone, Serialize, Deserialize, Debug)]
+pub struct InvokeTaskRequest {
+    pub task_id: String,
+    pub function_name: String,
+    pub task_token: String,
+    pub payload: Option<String>,
 }
 
-impl KMSClient {
-    pub fn new(target: &TargetDesc) -> Result<Self> {
-        let addr = target.addr;
-        let channel = match &target.desc {
-            OutboundDesc::Sgx(enclave_attr) => SgxTrustedChannel::<
-                InvokeTaskRequest,
-                InvokeTaskResponse,
-            >::new(addr, enclave_attr.clone())?,
-        };
-        Ok(KMSClient { 
-	    channel: channel,
-         })
-    }
+#[derive(Clone, Serialize, Deserialize, Debug)]
+pub struct InvokeTaskResponse {
+    pub result: String,
+}
 
-    pub fn invoke_task(
-        &mut self,
+impl InvokeTaskRequest {
+    pub fn new(
         task_id: &str,
         function_name: &str,
+        task_token: &str,
         payload: Option<&str>,
-    ) -> Result<InvokeTaskResponse> {
-        let req = InvokeTaskRequest::new(task_id, function_name, "", payload);
-        self.channel.invoke(req)
+    ) -> InvokeTaskRequest {
+        InvokeTaskRequest {
+            task_id: task_id.to_owned(),
+            function_name: function_name.to_owned(),
+            task_token: task_token.to_owned(),
+            payload: payload.map(|s| s.to_owned()),
+        }
+    }
+}
+
+impl InvokeTaskResponse {
+    pub fn new(result: &str) -> InvokeTaskResponse {
+        InvokeTaskResponse {
+            result: result.to_owned(),
+        }
     }
 }

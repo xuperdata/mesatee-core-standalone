@@ -4,7 +4,9 @@
 # and for those to exclude from cmake build, just append the '# ignore'
 # annotation suffix
 members = [
-  "examples/kmscli"
+  "examples/kmscli",
+  "mesatee_sdk", # ignore
+  "mesatee_sdk/c_sdk", # ignore
 ]
 
 exclude = [
@@ -14,6 +16,7 @@ exclude = [
 [patch.crates-io]
 # mesatee_core
 mesatee_core = { path = "./mesatee_core" }
+mesatee_sdk = { path = "./mesatee_sdk" }
 
 # We cannot remove these crates, because proto crates depend on them
 sgx_cov = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }

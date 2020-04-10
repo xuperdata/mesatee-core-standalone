@@ -4,6 +4,8 @@ use structopt::StructOpt;
 use std::net::SocketAddr;
 use std::path::PathBuf;
 
+use kms_proto::proto::{CreateKeyRequest, KMSRequest, EncType};
+
 lazy_static! {
     static ref KMS_ADDR: SocketAddr = "127.0.0.1:8081".parse().unwrap();
 }
@@ -24,6 +26,7 @@ enum Command {
 struct KMSOpt {
     #[structopt(short = "e", required = true)]
     enclave_info: PathBuf,
+    message: String,
 }
 
 fn run(args: KMSOpt) {
@@ -31,7 +34,11 @@ fn run(args: KMSOpt) {
     let auditors = vec![];
     let enclave_info = MesateeEnclaveInfo::load(auditors, args.enclave_info.to_str().unwrap()).expect("load");
     let mesatee = Mesatee::new(&enclave_info, "uid1", "token1", *KMS_ADDR).expect("new");
-    let response = mesatee.create_key().expect("create_key");
+    let req = CreateKeyRequest::new(kms_proto::EncType::ProtectedFs);
+    let create_request = KMSRequest::CreateKey(req);
+    let request = serde_json::to_string(&create_request).unwrap();    
+    let task = mesatee.create_task(&args.message).expect("create");
+    let response = task.invoke_with_payload(&request).expect("invoke");
     println!("{:?}", response);
 }
 
