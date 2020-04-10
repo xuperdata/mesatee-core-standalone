@@ -27,17 +27,6 @@
 #      │                                                   │ TDFS API Endpoint
 #      └───────────────────────────────────────────────────┘
 
-[api_endpoints]
-tms  = { listen_address = "0.0.0.0:5554" }
-tdfs = { listen_address = "0.0.0.0:5065" }
-fns  = { listen_address = "0.0.0.0:3444", advertised_address = "127.0.0.1:3444"}
-
-[internal_endpoints]
-tms  = { listen_address = "0.0.0.0:5555", advertised_address = "127.0.0.1:5555" }
-tdfs = { listen_address = "0.0.0.0:5066", advertised_address = "127.0.0.1:5066" }
-kms  = { listen_address = "0.0.0.0:6016", advertised_address = "127.0.0.1:6016" }
-acs  = { listen_address = "0.0.0.0:5077", advertised_address = "127.0.0.1:5077" }
-
 [audit]
 enclave_info = { path = "enclave_info.toml" }
 auditor_signatures = [

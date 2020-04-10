@@ -64,7 +64,6 @@ impl OutboundDesc {
     }
 }
 
-
 fn load_presigned_enclave_info() -> HashMap<String, EnclaveMeasurement> {
     if runtime_config().audit.auditor_signatures.len() < BUILD_CONFIG.auditor_public_keys.len() {
         panic!("Number of auditor signatures is not enough for verification.")
