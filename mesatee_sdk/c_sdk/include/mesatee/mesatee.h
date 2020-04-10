@@ -47,12 +47,11 @@ MESATEE_API int mesatee_init();
 // MesaTEE Context APIs
 MESATEE_API mesatee_t *mesatee_context_new(const mesatee_enclave_info_t *enclave_info_ptr,
                                            const char* user_id, const char* user_token,
-                                           sockaddr_t * tms_addr, sockaddr_t * tdfs_addr);
+                                           sockaddr_t * tms_addr);
 
 MESATEE_API mesatee_t* mesatee_context_new2(const mesatee_enclave_info_t* enclave_info_ptr,
                                            const char* user_id, const char* user_token,
-                                           const char* tms_addr_ptr/*ip:port*/,
-                                           const char* tdfs_addr_ptr/*ip:port*/);
+                                           const char* tms_addr_ptr/*ip:port*/); 
 
 MESATEE_API int mesatee_context_free(mesatee_t *ctx_ptr);
 
