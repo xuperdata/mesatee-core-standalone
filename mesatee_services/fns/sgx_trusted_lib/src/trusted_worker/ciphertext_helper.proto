@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message CipherText {
+    uint32 svn = 1;
+    bytes content = 2;
+    bytes address = 3; // 拥有者地址的hash
+    bytes args_hash = 4; 
+}

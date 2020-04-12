@@ -1,4 +1,4 @@
-use kms_client::KMSClient;
+use fns_client::FNSClient;
 use mesatee_core::config::{OutboundDesc, TargetDesc};
 pub use mesatee_core::{Error, ErrorKind, Result};
 use std::fs;
@@ -8,7 +8,10 @@ use std::str::FromStr;
 use teaclave_utils;
 
 pub struct Mesatee {
+    // 暂时没有用上user的信息
+    #[allow(dead_code)]
     user_id: String,
+    #[allow(dead_code)]
     user_token: String,
     task_desc: TargetDesc,
 }
@@ -40,7 +43,7 @@ impl Mesatee {
         enclave_info: &MesateeEnclaveInfo,
         user_id: &str,
         user_token: &str,
-        kms_addr: SocketAddr,
+        fns_addr: SocketAddr,
     ) -> Result<Self> {
         let mut enclave_signers: Vec<(&[u8], &Path)> = vec![];
         for (der, hash) in enclave_info.enclave_signers.iter() {
@@ -57,10 +60,10 @@ impl Mesatee {
 
         let tms_outbound_desc = OutboundDesc::new(
             *enclave_identities
-                .get("kms")
+                .get("fns")
                 .ok_or_else(|| Error::from(ErrorKind::MissingValue))?,
         );
-        let task_desc = TargetDesc::new(kms_addr, tms_outbound_desc);
+        let task_desc = TargetDesc::new(fns_addr, tms_outbound_desc);
 
         let mesatee = Self {
             user_id: user_id.to_owned(),
@@ -69,14 +72,7 @@ impl Mesatee {
         };
         Ok(mesatee)
     }
-/*
-    pub fn create_key(&self) -> Result<kms_proto::proto::CreateKeyResponse> {
-        let mut kms_client = KMSClient::new(&self.task_desc, &self.user_id, &self.user_token)?;
-        let resp = kms_client.create_key();
-        println!("mesatee kms create_key: {:?}", resp);
-	resp
-    }
-*/
+
     pub fn create_task(&self, function_name: &str) -> Result<MesateeTask> {
         self._create_task(function_name)
     }
@@ -106,8 +102,8 @@ impl MesateeTask {
             .task_desc
             .as_ref()
             .ok_or_else(|| Error::from(ErrorKind::MissingValue))?;
-        let mut kms_client = KMSClient::new(desc)?;
-        let response = kms_client.invoke_task(
+        let mut fns_client = FNSClient::new(desc)?;
+        let response = fns_client.invoke_task(
             &self.task_id,
             &self.function_name,
             payload,

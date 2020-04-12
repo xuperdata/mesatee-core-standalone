@@ -2,6 +2,7 @@
 
 members = [
   "mesatee_services/kms/sgx_trusted_lib",
+  "mesatee_services/fns/sgx_trusted_lib",
 ]
 
 exclude = [
@@ -23,7 +24,6 @@ sgx_tprotected_fs = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = 
 sgx_trts          = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
 sgx_tse           = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
 sgx_tstd          = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
-sgx_tunittest     = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
 sgx_types         = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
 sgx_unwind        = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
 
@@ -36,7 +36,6 @@ chrono            = { git = "https://github.com/mesalock-linux/chrono-sgx" }
 crc32fast         = { git = "https://github.com/mesalock-linux/rust-crc32fast-sgx" }
 color_quant       = { git = "https://github.com/mesalock-linux/color_quant-sgx" }
 deflate           = { git = "https://github.com/mesalock-linux/deflate-rs-sgx", branch = "dev" }
-gbdt              = { git = "https://github.com/mesalock-linux/gbdt-rs", branch = "mesatee-sgx" }
 getrandom         = { git = "https://github.com/mesalock-linux/getrandom-sgx" }
 gif               = { git = "https://github.com/mesalock-linux/image-gif-sgx" }
 image             = { git = "https://github.com/mesalock-linux/image-sgx" }
@@ -67,10 +66,6 @@ wasmi             = { git = "https://github.com/mesalock-linux/wasmi-sgx" }
 webpki            = { git = "https://github.com/mesalock-linux/webpki", branch = "mesalock_sgx" }
 webpki-roots      = { git = "https://github.com/mesalock-linux/webpki-roots", branch = "mesalock_sgx" }
 yasna             = { git = "https://github.com/mesalock-linux/yasna.rs-sgx" }
-rusty-machine     = { git = "https://github.com/mesalock-linux/rusty-machine-sgx" }
-bytes        = { git = "https://github.com/mesalock-linux/bytes-sgx" }
-prost        = { git = "https://github.com/mesalock-linux/prost-sgx" }
-prost-types  = { git = "https://github.com/mesalock-linux/prost-sgx" }
-rust_crypto  = { git = "https://github.com/mesalock-linux/rust-crypto-sgx.git", package="rust-crypto" }
-protobuf     = { git = "https://github.com/mesalock-linux/rust-protobuf-sgx", branch = "v2.8" }
- 
+bytes             = { git = "https://github.com/mesalock-linux/bytes-sgx" }
+prost             = { git = "https://github.com/mesalock-linux/prost-sgx" }
+prost-types       = { git = "https://github.com/mesalock-linux/prost-sgx" }

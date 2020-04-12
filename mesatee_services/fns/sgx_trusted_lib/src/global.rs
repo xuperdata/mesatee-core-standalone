@@ -14,39 +14,18 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-
-#![cfg_attr(feature = "mesalock_sgx", no_std)]
+use crate::trusted_worker::{
+    EchoWorker
+};
+use crate::worker::WorkerInfoQueue;
 #[cfg(feature = "mesalock_sgx")]
-#[macro_use]
-extern crate sgx_tstd as std;
+use std::prelude::v1::*;
 
-//#[macro_use]
-extern crate log;
 
-use thiserror::Error;
+pub fn register_trusted_worker_statically() {
+    for _i in 0..10 {
 
-#[derive(Error, Debug)]
-pub enum AttestationError {
-    #[error("OCall failed")]
-    OCallError,
-    #[error("Ias error")]
-    IasError,
-    #[error("Get quote error")]
-    QuoteError,
-}
-
-#[macro_use]
-mod cert;
-pub mod quote;
-pub mod verifier;
-
-use cfg_if::cfg_if;
-cfg_if! {
-    if #[cfg(feature = "mesalock_sgx")]  {
-        pub mod key;
-        mod report;
-        mod ias;
-        pub use report::IasReport;
-    } else {
+        let worker = Box::new(EchoWorker::new());
+        let _ = WorkerInfoQueue::register(worker);
     }
 }

@@ -2,6 +2,7 @@
 
 members = [
   "mesatee_services/kms/sgx_app",
+  "mesatee_services/fns/sgx_app",
 ]
 
 exclude = [

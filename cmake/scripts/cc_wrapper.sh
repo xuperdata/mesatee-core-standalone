@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 REQUIRED_ENVS=("MESATEE_PROJECT_ROOT" "MESATEE_BUILD_ROOT" "CMAKE_C_COMPILER")
 for var in "${REQUIRED_ENVS[@]}"; do
     [ -z "${!var}" ] && echo "Please set ${var}" && exit -1
