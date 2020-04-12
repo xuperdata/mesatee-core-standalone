@@ -1,7 +1,7 @@
 # mesatee-core-standalone
 A standalone mesatee-core aims to provide a lightweight, efficient TCP-based RPC library with remote attestation integrated, ported from [incubator-teaclave](https://github.com/apache/incubator-teaclave).
 
-Now we provide a very easy-to-use approach for you to write your own trusted application powered by [TEESDK](https://github.com/xuperdata/teesdk) and [XuperChain](https://github.com/xuperchain/xuperchain). 
+Now we provide a very easy-to-use approach for you to write your own trusted application based on [TEESDK](https://github.com/xuperdata/teesdk) and [XuperChain](https://github.com/xuperchain/xuperchain). 
 
 # Quick Start
 
