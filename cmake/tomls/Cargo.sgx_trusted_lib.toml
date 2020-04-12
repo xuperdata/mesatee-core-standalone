@@ -1,7 +1,6 @@
 [workspace]
 
 members = [
-  "mesatee_services/kms/sgx_trusted_lib",
   "mesatee_services/fns/sgx_trusted_lib",
 ]
 
