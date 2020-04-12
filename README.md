@@ -14,21 +14,21 @@ cmake -DTEST_MODE=ON .. && make
 
 ## Have a try 
 
-There is a demo KMS(Key Managerment Service) in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianry, `kms` and `kmscli`. 
+There is a demo KMS(Key Managerment Service) in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianry, `fns` and `quickstart`. 
 
 ```
 export IAS_SPID=xxxx
 export IAS_KEY=xxx
 
 cd mesatee-core-standalone/release/services
-export CARGO_PKG_NAME=kms
-./kms
+export CARGO_PKG_NAME=fns
+./fns
 ```
 
 Open another terminal, and run
 ```
 cd mesatee-core-standalone/release/examples
-./kmscli kms -e ./enclave_info.toml
+./quickstart echo -e ./enclave_info.toml  -m "hello, world"
 ```
  
 ## Community 
