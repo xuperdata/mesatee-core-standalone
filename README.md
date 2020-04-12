@@ -28,7 +28,7 @@ export CARGO_PKG_NAME=fns
 Open another terminal, and run
 ```
 cd mesatee-core-standalone/release/examples
-./cli echo -e ./enclave_info.toml  -m "hello, world"
+./quickstart echo -e ./enclave_info.toml  -m "hello, world"
 ```
  
 ## Community 
