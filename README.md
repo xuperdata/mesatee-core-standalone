@@ -14,7 +14,7 @@ cmake -DTEST_MODE=ON .. && make
 
 ## Have a try 
 
-There is a `quickstart` in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianry, `fns` and `quickstart`. 
+There is a `quickstart` in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianries: `fns` and `quickstart`. 
 
 ```
 export IAS_SPID=xxxx
