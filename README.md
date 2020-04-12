@@ -33,4 +33,4 @@ cd mesatee-core-standalone/release/examples
 ```
  
 ## Community 
-This library is maintained by members from XuperChain team and Mesatee team collaboratively. Also this lib will largely enable the multiple-parties confidential computing on blockchain. 
+This library is maintained by members from XuperChain team and Mesatee team collaboratively. This lib will largely enable the multiple-parties confidential computing on blockchain. 
