@@ -14,7 +14,7 @@ cmake -DTEST_MODE=ON .. && make
 
 ## Have a try 
 
-There is a demo KMS(Key Managerment Service) in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianry, `fns` and `quickstart`. 
+There is a `quickstart` in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianry, `fns` and `quickstart`. 
 
 ```
 export IAS_SPID=xxxx
@@ -24,6 +24,7 @@ cd mesatee-core-standalone/release/services
 export CARGO_PKG_NAME=fns
 ./fns
 ```
+Notice that the default port of fns is 8082.
 
 Open another terminal, and run
 ```
