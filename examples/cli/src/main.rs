@@ -61,7 +61,7 @@ impl FNSOpt {
                 };
                 serde_json::to_string(&create_request).unwrap()
             }
-            "store" | "add" | "debug" => {
+            "store" | "add" | "sub" | "mul" | "debug" => {
                 let create_request = XChainTFWorkerInput {
                     method: self.method.to_owned(),
                     svn: self.svn,
@@ -83,7 +83,7 @@ fn run(args: FNSOpt) {
     let mesatee = Mesatee::new(&enclave_info, "uid1", "token1", *FNS_ADDR).expect("new");
     let function_name = match &args.method[..] {
         "init" | "mint" | "inc" => "xchainkms",
-        "store" | "add" | "debug" => "xchaintf",
+        "store" | "add" | "sub" | "mul" | "debug" => "xchaintf",
         _ => {
             std::panic!("invalid method");
         }
