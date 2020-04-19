@@ -106,42 +106,38 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
          optLevel: 0
       ```
 
-   6. 拉取超级链SDK（上面给的地址，非主干）最新的代码。
+   6. 拉取超级链SDK（上面给的地址，非主干）最新的代码。配置sdk.yaml , 配置也可以直接拉取https://github.com/xuperdata/teesdk/blob/master/xchain_plugin/teeconfig.conf
 
-   配置sdk.yaml , 配置也可以直接拉取https://github.com/xuperdata/teesdk/blob/master/xchain_plugin/teeconfig.conf
-
-   ```
-   svn: 0
-   enable: on
-   tmsport: 8082
-   uid: "uid1"
-   token: "token1"
-   auditors:
-   -
-    publicder: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.public.der
-    sign: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.sign.sha256
-    enclaveinfoconfig: /root/mesatee-core-standalone/release/services/enclave_info.toml
-   ```
+      ```
+      svn: 0
+      enable: on
+      tmsport: 8082
+      uid: "uid1"
+      token: "token1"
+      auditors:
+      -
+       publicder: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.public.der
+       sign: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.sign.sha256
+       enclaveinfoconfig: /root/mesatee-core-standalone/release/services/enclave_info.toml
+      ```
 
 2. 测试
 
-可信应用开发参考合约xuperchain/core/contractsdk/cpp/example/trustops/src/[trust_counter.cc](http://trust_counter.cc/)；
+   可信应用开发参考合约xuperchain/core/contractsdk/cpp/example/trustops/src/[trust_counter.cc](http://trust_counter.cc/)；可信合约相关测试参考xuper-sdk-go/example/main_trust_counter.go；mesatee-core服务相关测试参考teesdk/teesdk_test.go。	
 
-可信合约相关测试参考xuper-sdk-go/example/main_trust_counter.go；
+   
 
-mesatee-core服务相关测试参考teesdk/teesdk_test.go。
-
-可信合约的执行流程和原理如下：counter合约中的方法使用了TrustOperators可信算子，TrustOperators会通过tfcall调用外部SDK，这时会调用到我们提前注册好的teesdk。teesdk通过cgo实现了链的go代码对mesatee-core-standalone的c_sdk的调用，最后实现了mesatee_service的TEE服务调用。
+   可信合约的执行流程和原理如下：counter合约中的方法使用了TrustOperators可信算子，TrustOperators会通过tfcall调用外部SDK，这时会调用到我们提前注册好的teesdk。teesdk通过cgo实现了链的go代码对mesatee-core-standalone的c_sdk的调用，最后实现了mesatee_service的TEE服务调用。
 
 #### 开发智能合约
 
-隐私应用目前支持五种加密方法：加密存储、解密、密文相加、密文相减、密文相乘。trust_counter合约的使用如下：
+​	隐私应用目前支持五种加密方法：加密存储、解密、密文相加、密文相减、密文相乘。trust_counter合约的使用如下：
 
-store：使用xuper-sdk-go的方法invokewasm调用合约时，传入的参数是{"key":"value_plain"}，如果调用的合约方法是store，xuper-sdk-go会调用teesdk对传进来的合约参数进行加密，加密后为{"key":"value_cipher"}。调用合约时，只需要直接存储即可，详见合约trust_counter的store方法。这里传参可以传多个kv。
+​	store：使用xuper-sdk-go的方法invokewasm调用合约时，传入的参数是{"key":"value_plain"}，如果调用的合约方法是store，xuper-sdk-go会调用teesdk对传进来的合约参数进行加密，加密后为{"key":"value_cipher"}。调用合约时，只需要直接存储即可，详见合约trust_counter的store方法。这里传参可以传多个kv。
 
-debug：调用时传入的参数是{"any":"key"}，key是我们需要解密的数据对应的key，在sdk中直接解密并返回解密后的结果，不需要调用合约。
+​	debug：调用时传入的参数是{"any":"key"}，key是我们需要解密的数据对应的key，在sdk中直接解密并返回解密后的结果，不需要调用合约。
 
-add：调用时传入的参数是{"l":"key_l","r":"key_r","o":"key_o"}，“key_o”为结果存储时对应的key，合约调用时要先取出“l”和“r”对应的明文，之后组装调用参数为{"l":"value_l_cipher","r":"value_r_cipher","o":"key_o"}，最后调用add方法，返回加法结果{“key_o”:"res_cipher"}，结果会存储到链上。
+​	add：调用时传入的参数是{"l":"key_l","r":"key_r","o":"key_o"}，“key_o”为结果存储时对应的key，合约调用时要先取出“l”和“r”对应的明文，之后组装调用参数为{"l":"value_l_cipher","r":"value_r_cipher","o":"key_o"}，最后调用add方法，返回加法结果{“key_o”:"res_cipher"}，结果会存储到链上。
 
 其他二元运算原理相同。
 
@@ -152,4 +148,3 @@ add：调用时传入的参数是{"l":"key_l","r":"key_r","o":"key_o"}，“key_
 | add、sub、mul | {"l":"key_l", r":"key_r", "o":"key_o"} | {"key_o":"res_cipher"} | {"key_o":"res_cipher"}  |
 
 以此为参考，用户可根据自身需要开发可信应用。
-
