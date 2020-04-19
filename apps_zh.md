@@ -60,12 +60,70 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
 
 #### 流程和原理
 
-这里涉及到四个代码库：
+1. 部署过程
 
-1. 百度超级链底层代码库，支持多语言智能合约：https://github.com/xuperchain/xuperchain
-2. xuperchain的go版本sdk：https://github.com/duanbing/xuper-sdk-go
-3. teesdk用于调用mesatee服务：https://github.com/xuperdata/teesdk
-4. mesatee-core是mesatee中抽取出的核心功能组件，可实现数据可信运算和秘钥托管服务：https://github.com/xuperdata/mesatee-core-standalone
+   1. 下载  https://github.com/xuperdata/mesatee-core-standalone
+
+   2.  部署你自己实现的app，并且部署到mesatee_services/fns/sgx_trusted_lib
+
+   3. 按照步骤2的文档进行编译，然后启动。
+
+      ```
+      export IAS_SPID=your IAS SPID
+      export IAS_KEY=your IAS KEY
+      export RUST_LOG=debug  //可选
+      ```
+
+   注意FNS的默认端口是8082.
+
+   4. 编译TEESDK
+
+      ```
+      git clone https:``//github.com/xuperdata/teesdk
+      cd teesdk
+      cp $HOME/mesatee-core-standalone/release/lib/libmesatee_sdk_c.so lib/
+      cd xchain_plugin
+      bash build.sh
+      ```
+
+      编译之后会产出libmesateesdk.so.0.0.1， 然后将这个文件所在的路径填充到xchain的pluginPath配置里面，
+
+   5.  拉取**超级链**3.7版本的代码： https://github.com/xuperchain/xuperchain , 注意编译的时候把 makefile的 **-mod=vendor**去掉，编译超级链，并且在xchain.conf增加如下配置：
+
+      ```
+      # 块广播模式
+      blockBroadcaseMode: 0
+      ...
+      #可信环境的入口, optional
+      wasm:
+       driver: "xvm"
+       enableUpgrade: false
+       teeConfig:
+         enable: on
+         pluginPath: "/root/private-ledger-go-api/xchain_plugin/libmesateesdk.so.0.0.1"
+         configPath: "/root/private-ledger-go-api/xchain_plugin/teeconfig.conf"
+       xvm:
+         optLevel: 0
+      ```
+
+   6. 拉取超级链SDK（上面给的地址，非主干）最新的代码。
+
+   配置sdk.yaml , 配置也可以直接拉取https://github.com/xuperdata/teesdk/blob/master/xchain_plugin/teeconfig.conf
+
+   ```
+   svn: 0
+   enable: on
+   tmsport: 8082
+   uid: "uid1"
+   token: "token1"
+   auditors:
+   -
+    publicder: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.public.der
+    sign: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.sign.sha256
+    enclaveinfoconfig: /root/mesatee-core-standalone/release/services/enclave_info.toml
+   ```
+
+2. 测试
 
 可信应用开发参考合约xuperchain/core/contractsdk/cpp/example/trustops/src/[trust_counter.cc](http://trust_counter.cc/)；
 
@@ -73,17 +131,7 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
 
 mesatee-core服务相关测试参考teesdk/teesdk_test.go。
 
-可信合约的执行流程和原理如下：
-
-counter合约中的方法使用了TrustOperators可信算子，TrustOperators会通过tfcall调用外部SDK，这时会调用到我们提前注册好的teesdk。teesdk通过cgo实现了链的go代码对mesatee-core-standalone的c_sdk的调用，最后实现了mesatee_service的TEE服务调用。
-
-#### teesdk
-
-teesdk文件目录下的lib和mesatee文件夹中的内容是直接从mesatee-core-standalone中移植过来的。
-
-lib/[lib_mesateesdk_c.so](http://lib_mesateesdk_c.so/)：来自mesatee-core-standalone/release/lib/[lib_mesateesdk_c.so](http://lib_mesateesdk_c.so/)
-
-mesatee整个文件夹内容，来自mesatee-core-standalone/mesatee_sdk/c_sdk/include/mesatee
+可信合约的执行流程和原理如下：counter合约中的方法使用了TrustOperators可信算子，TrustOperators会通过tfcall调用外部SDK，这时会调用到我们提前注册好的teesdk。teesdk通过cgo实现了链的go代码对mesatee-core-standalone的c_sdk的调用，最后实现了mesatee_service的TEE服务调用。
 
 #### 开发智能合约
 
