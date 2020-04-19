@@ -13,6 +13,7 @@ docker run --name core3 --net=host -v$(pwd):/teaclave -w /teaclave -it teaclave/
 mkdir -p build && cd build
 cmake -DTEST_MODE=ON .. && make
 ```
+If you want to test it in Non-SGX server, add `-DSGX_SIM_MODE` when compiling.
 
 ## Have a try 
 
