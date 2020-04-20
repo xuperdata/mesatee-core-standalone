@@ -131,6 +131,7 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
    ​	可信合约的执行流程和原理如下：counter合约中的方法使用了TrustOperators可信算子，TrustOperators会通过tfcall调用外部SDK，这时会调用到我们提前注册好的teesdk。teesdk通过cgo实现了链的go代码对mesatee-core-standalone的c_sdk的调用，最后实现了mesatee_service的TEE服务调用。
 
 #### 开发智能合约
+        以下部分不是全部开源。
 
 ​	隐私应用目前支持五种加密方法：加密存储、解密、密文相加、密文相减、密文相乘。trust_counter合约的使用如下：
 
