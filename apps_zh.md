@@ -106,7 +106,7 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
          optLevel: 0
       ```
 
-      6. 拉取超级链SDK（上面给的地址，非主干）最新的代码。配置sdk.yaml , 配置也可以直接拉取https://github.com/xuperdata/teesdk/blob/master/xchain_plugin/teeconfig.conf
+     6. 拉取超级链SDK（上面给的地址，非主干）最新的代码。配置sdk.yaml , 配置也可以直接拉取https://github.com/xuperdata/teesdk/blob/master/xchain_plugin/teeconfig.conf
 
          ```
          svn: 0
@@ -148,3 +148,4 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
 | add、sub、mul | {"l":"key_l", r":"key_r", "o":"key_o"} | {"key_o":"res_cipher"} | {"key_o":"res_cipher"}  |
 
 ​	以此为参考，用户可根据自身需要开发可信应用。
+
