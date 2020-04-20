@@ -80,7 +80,7 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
    4. 编译TEESDK
 
       ```
-      git clone https:``//github.com/xuperdata/teesdk
+      git clone https://github.com/xuperdata/teesdk
       cd teesdk
       cp $HOME/mesatee-core-standalone/release/lib/libmesatee_sdk_c.so lib/
       cd xchain_plugin
