@@ -125,7 +125,7 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
 
 2. 测试
 
-   ​	可信应用开发参考合约[trust_counter](https://github.com/xuperchain/xuperchain/blob/master/core/contractsdk/cpp/example/trustops/src/trust_counter.cc)；可信合约相关测试参考xuper-sdk-go/example/main_trust_counter.go；mesatee-core服务相关测试参考[teesdk_test](https://github.com/xuperdata/teesdk/blob/master/teesdk_test.go)。	
+   ​	可信应用开发参考合约[trust_counter](https://github.com/xuperchain/xuperchain/blob/master/core/contractsdk/cpp/example/trustops/src/trust_counter.cc)；可信合约相关测试参考[main_trust_counter](https://github.com/xuperdata/xuper-sdk-go/blob/master/example/main_trust_counter.go)；mesatee-core服务相关测试参考[teesdk_test](https://github.com/xuperdata/teesdk/blob/master/teesdk_test.go)。
 
    ​	可信合约的执行流程和原理如下：counter合约中的方法使用了TrustOperators可信算子，TrustOperators会通过tfcall调用外部SDK，这时会调用到我们提前注册好的teesdk。teesdk通过cgo实现了链的go代码对mesatee-core-standalone的c_sdk的调用，最后实现了mesatee_service的TEE服务调用。
 
