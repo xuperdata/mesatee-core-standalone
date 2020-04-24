@@ -143,5 +143,6 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
 | debug         | {"anykey": "key"}                      | {"key":"value_plain"}  | N/A                     |
 | add、sub、mul | {"l":"key_l", r":"key_r", "o":"key_o"} | {"key_o":"res_cipher"} | {"key_o":"res_cipher"}  |
 
-​	以此为参考，用户可根据自身需要开发可信应用。
+​	以此为参考，用户可根据自身需要开发可信应用。  
+更全的指令设计正在进行中。参考： [Trusted Ledger Instruction Initiative](https://github.com/xuperdata/mesatee-core-standalone/wiki/Proposal:-Trusted-Ledger-Instruction)
 
