@@ -14,7 +14,11 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
 
    负责交易的封装，加密和解密
 
-3. mesatee-core: https://github.com/xuperdata/mesatee-core-standalone
+3. xuperchain: https://github.com/xuperchain/xuperchain
+
+   超级链开源代码
+
+4. mesatee-core: https://github.com/xuperdata/mesatee-core-standalone
 
    可以说是一个TEE Enclave App的开发框架。结合[SGX RUST SDK](https://github.com/apache/incubator-teaclave-sgx-sdk), 以及[SGX Crates](https://github.com/universal-secure-computing-community/crates-sgx) 可以快速实现可信账本。
 
@@ -24,14 +28,13 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
 2. 基本算子以及加解密功能：这部分实现非常简单，但是目前因为跟KMS有耦合，后面会进行解耦，并且陆续开源，这里也是大家可以参与的部分
 3. 链上数据协同商业化解决方案： 我们针对不同的政务场景，金融场景等提供了数据可信上链，多方安全计算等解决方案。
 
-
 ### 超级链可信账本可以干什么？
 
 基于超级链和mesatee实现链上合约数据加密存储以及基本运算：
 
-* 加密存储： 数据加密存储在合约里面，并且数据提供者具备对数据的**所有权**。同时支持密文数据所有权共享。
+- 加密存储： 数据加密存储在合约里面，并且数据提供者具备对数据的**所有权**。同时支持密文数据所有权共享。
 
-* 基本运算： 例如密文加法，减法以及乘法，比较运算等，我们统一称之为**隐私计算**算子。同时可以使用mesatee-core快速扩展算子，实现包括支持图灵完备计算，以及多方安全计算。
+- 基本运算： 例如密文加法，减法以及乘法，比较运算等，我们统一称之为**隐私计算**算子。同时可以使用mesatee-core快速扩展算子，实现包括支持图灵完备计算，以及多方安全计算。
 
   实际上上面提到的基本功能几乎可以让你实现任何复杂的功能。
 
@@ -75,15 +78,15 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
 
       ```
       git clone https://github.com/xuperdata/teesdk
-      cd teesdk
+      cd teesdk/mesatee
       cp $HOME/mesatee-core-standalone/release/lib/libmesatee_sdk_c.so lib/
-      cd xchain_plugin
+      cd ../
       bash build.sh
       ```
 
-      编译之后会产出libmesateesdk.so.0.0.1， 然后将这个文件所在的路径填充到xchain的pluginPath配置里面，
+      编译之后会在build目录产出libmesateesdk.so.0.0.1， 然后将这个文件和mesatee/xchain-plugin/teeconfig.conf拷贝到xchain的pluginPath配置的目录下面，
 
-   5. 拉取**超级链**3.7版本的代码： https://github.com/xuperchain/xuperchain , 注意编译的时候把 makefile的 **-mod=vendor**去掉，编译超级链，并且在xchain.conf增加如下配置：
+   5. 拉取超级链最新代码： https://github.com/xuperchain/xuperchain , 注意编译的时候把 makefile的 **-mod=vendor**去掉，编译超级链，并且在xchain.conf增加如下配置：
 
       ```
       # 块广播模式
@@ -99,50 +102,69 @@ TEE的全称是可信计算环境， MesaTEE提供了一种内存安全的编程
          configPath: "/root/private-ledger-go-api/xchain_plugin/teeconfig.conf"
        xvm:
          optLevel: 0
+         
+      #是否开启默认的XEndorser背书服务
+      enableXEndorser: true
       ```
 
-     6. 拉取超级链SDK（上面给的地址，非主干）最新的代码。配置sdk.yaml , 配置也可以直接拉取[teeconfig.conf](https://github.com/xuperdata/teesdk/blob/master/xchain_plugin/teeconfig.conf)
+   6. 拉取超级链SDK最新的代码。配置sdk.yaml.tee
 
-         ```
-         svn: 0
-         enable: on
-         tmsport: 8082
-         uid: "uid1"
-         token: "token1"
-         auditors:
-         -
-          publicder: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.public.der
-          sign: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.sign.sha256
-          enclaveinfoconfig: /root/mesatee-core-standalone/release/services/enclave_info.toml
-         ```
+      ```
+      tfConfig:
+        teeConfig:
+          svn: 0
+          enable: on
+          tmsport: 8082
+          uid: "uid1"
+          token: "token1"
+          auditors:
+            -
+              publicder: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.public.der
+              sign: /root/mesatee-core-standalone/release/services/auditors/godzilla/godzilla.sign.sha256
+              enclaveinfoconfig: /root/mesatee-core-standalone/release/services/enclave_info.toml
+      paillierConfig:
+        enable: off
+      ```
 
-         
+      
 
 2. 测试
 
-   ​	可信应用开发参考合约[trust_counter](https://github.com/xuperchain/xuperchain/blob/master/core/contractsdk/cpp/example/trustops/src/trust_counter.cc)；可信合约相关测试参考[main_trust_counter](https://github.com/xuperdata/xuper-sdk-go/blob/master/example/main_trust_counter.go)；mesatee-core服务相关测试参考[teesdk_test](https://github.com/xuperdata/teesdk/blob/master/teesdk_test.go)。
+   可信应用开发参考合约[data_auth](https://github.com/xuperchain/xuperchain/blob/master/core/contractsdk/cpp/example/paillier/src/paillier.cc)；可信合约相关测试参考[main_data_auth](https://github.com/xuperdata/xuper-sdk-go/blob/master/example/main_paillier.go)；mesatee-core服务相关测试参考[teesdk_test](https://github.com/xuperdata/teesdk/blob/master/mesatee/teesdk_test.go)。
 
-   ​	可信合约的执行流程和原理如下：counter合约中的方法使用了TrustOperators可信算子，TrustOperators会通过tfcall调用外部SDK，这时会调用到我们提前注册好的teesdk。teesdk通过cgo实现了链的go代码对mesatee-core-standalone的c_sdk的调用，最后实现了mesatee_service的TEE服务调用。
+      	可信合约的执行流程和原理如下：data_auth合约中的方法使用了TrustOperators可信算子，TrustOperators会通过tfcall调用外部SDK，这时会调用到我们提前注册好的teesdk。teesdk通过cgo实现了链的go代码对mesatee-core-standalone的c_sdk的调用，最后实现了mesatee_service的TEE服务调用。
 
 #### 开发智能合约
-        以下部分不是全部开源。
 
-​	隐私应用目前支持五种加密方法：加密存储、解密、密文相加、密文相减、密文相乘。trust_counter合约的使用如下：
+```
+以下部分不是全部开源。
+```
 
-​	store：使用xuper-sdk-go的方法invokewasm调用合约时，传入的参数是{"key":"value_plain"}，如果调用的合约方法是store，xuper-sdk-go会调用teesdk对传进来的合约参数进行加密，加密后为{"key":"value_cipher"}。调用合约时，只需要直接存储即可，详见合约trust_counter的store方法。这里传参可以传多个kv。
+隐私应用目前支持密文的二元运算(加法、减法、乘法)、数据授权(所属权、使用权)，具体可以参考可信算子的实现trust_operators. 
 
-​	debug：调用时传入的参数是{"any":"key"}，key是我们需要解密的数据对应的key，在sdk中直接解密并返回解密后的结果，不需要调用合约。
+在data_auth合约里，我们定义了一个表，用于存储隐私数据。
+每一行指定一个数据id、拥有者、密文内容、过期时间、user地址、授权信息。
+owner使用自己数据时不需要commitment，所以当owner=user时，commitment字段为空。
 
-​	add：调用时传入的参数是{"l":"key_l","r":"key_r","o":"key_o"}，“key_o”为结果存储时对应的key，合约调用时要先取出“l”和“r”对应的明文，之后组装调用参数为{"l":"value_l_cipher","r":"value_r_cipher","o":"key_o"}，最后调用add方法，返回加法结果{“key_o”:"res_cipher"}，结果会存储到链上。
+| dataid | owner | content | exp_time | user  | commitment  |
+| :----- | :---- | :------ | :------- | :---- | :---------- |
+| 111    | owner | @#%!^@  | 20201010 | owner |             |
+| 111    | owner | @#%!^@  | 20201010 | user1 | commiment1  |
+| 111    | owner | @#%!^@  | 20201010 | user2 | commitment2 |
 
-​	其他二元运算原理相同。
+合约中定义了9个方法，包括数据增删改查、数据所有权和使用权授予、数据的二元运算。主要方法如下：
 
-| 方法          | 传入数据                               | 返回数据               | 链上存储数据            |
-| :------------ | :------------------------------------- | :--------------------- | :---------------------- |
-| store         | {"key", "value_plain"}                 | {"done/error"}         | ("key", "value_cipher") |
-| debug         | {"anykey": "key"}                      | {"key":"value_plain"}  | N/A                     |
-| add、sub、mul | {"l":"key_l", r":"key_r", "o":"key_o"} | {"key_o":"res_cipher"} | {"key_o":"res_cipher"}  |
+| 方法名称  | 入参                                   | 处理过程                                                     | 返回                 |
+| :-------- | :------------------------------------- | :----------------------------------------------------------- | :------------------- |
+| store     | dataid, content, expire,auth           | 插入记录，user是自己的地址                                   | “done” / "failed..." |
+| authorize | dataid, user, pubkey, signature        | 调用算子计算给user的commitment，添加新的一行数据             | "done" / "failed..." |
+| share     | dataid, addr, newid, pubkey, signature | 利用算子重新加密数据，将数据newid插入表中并赋予新的owner     | "done" / "failed..." |
+| add       | dataid1, dataid2, newid                | 取出两个密文和对应的commitment，调用可信算子add方法，返回密文后添加新的一行数据 | "done" / "failed..." |
 
-​	以此为参考，用户可根据自身需要开发可信应用。  
+用户可以在表中存储自己的加密数据，需要授权时调用authorize方法，对user进行权限授予，授权信息会存在表中。用户可以使用表中的加密数据，调用add、sub、mul方法进行隐私计算，得到的结果也会加密存到表中。
+
+```
+以此为参考，用户可根据自身需要开发可信应用。  
+```
+
 更全的指令设计正在进行中。参考： [Trusted Ledger Instruction Initiative](https://github.com/xuperdata/mesatee-core-standalone/wiki/Proposal:-Trusted-Ledger-Instruction)
-
