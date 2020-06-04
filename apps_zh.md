@@ -159,7 +159,7 @@ owner使用自己数据时不需要commitment，所以当owner=user时，commitm
 | store     | dataid, content, expire,auth           | 插入记录，user是自己的地址                                   | “done” / "failed..." |
 | authorize | dataid, user, pubkey, signature        | 调用算子计算给user的commitment，添加新的一行数据             | "done" / "failed..." |
 | share     | dataid, addr, newid, pubkey, signature | 利用算子重新加密数据，将数据newid插入表中并赋予新的owner     | "done" / "failed..." |
-| add       | dataid1, dataid2, newid                | 取出两个密文和对应的commitment，调用可信算子add方法，返回密文后添加新的一行数据 | "done" / "failed..." |
+| add/sub/mul | dataid1, dataid2, newid                | 取出两个密文和对应的commitment，调用可信算子add/sub/mul方法，返回密文后添加新的一行数据 | "done" / "failed..." |
 
 用户可以在表中存储自己的加密数据，需要授权时调用authorize方法，对user进行权限授予，授权信息会存在表中。用户可以使用表中的加密数据，调用add、sub、mul方法进行隐私计算，得到的结果也会加密存到表中。
 
