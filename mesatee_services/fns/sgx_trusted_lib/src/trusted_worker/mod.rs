@@ -16,13 +16,5 @@
 // under the License.
 
 // Insert std prelude in the top for the sgx feature
-mod xchain_private_ledger;
-pub use xchain_private_ledger::XChainKMSWorker;
-pub use xchain_private_ledger::XChainTFWorker;
-
-mod ciphertext_helper;
-mod crypto_helper;
-mod auth;
-
 mod demo_func;
 pub use demo_func::EchoWorker;

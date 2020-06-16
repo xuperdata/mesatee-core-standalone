@@ -22,15 +22,6 @@ extern crate sgx_tstd as std;
 #[macro_use]
 extern crate log;
 
-#[macro_use]
-extern crate lazy_static;
-
-extern crate hex;
-extern crate prost;
-extern crate ring;
-extern crate chrono;
-
-
 mod fns;
 mod global;
 mod trusted_worker;
