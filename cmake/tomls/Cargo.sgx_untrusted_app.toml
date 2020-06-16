@@ -15,6 +15,6 @@ mesatee_core = { path = "./mesatee_core" }
 teaclave_binder = { path = "./teaclave_binder" }
 
 # We cannot remove these crates, because proto crates depend on them
-sgx_cov = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
-sgx_urts = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
-sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.0" }
+sgx_cov = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.2" }
+sgx_urts = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.2" }
+sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk", rev = "v1.1.2" }

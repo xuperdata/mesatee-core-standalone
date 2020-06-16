@@ -41,6 +41,8 @@ sgx_tseal            = { version = "1.1.0" }
 sgx_tse              = { version = "1.1.0" }
 
 hex 		     = { version = "0.4.0" }
+num-bigint           = { version = "0.2.3" }
+chrono               = { version = "0.4.7" }
 
 prost = { version = "0.5.0" }
 bytes = { version = ">= 0.4.12"} # unix app depends on 0.4.12, while sgx lib depends on 0.5.0

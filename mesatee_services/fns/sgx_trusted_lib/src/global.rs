@@ -24,7 +24,6 @@ use std::prelude::v1::*;
 
 pub fn register_trusted_worker_statically() {
     for _i in 0..10 {
-
         let worker = Box::new(EchoWorker::new());
         let _ = WorkerInfoQueue::register(worker);
     }
