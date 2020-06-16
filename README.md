@@ -1,7 +1,7 @@
 # mesatee-core-standalone
 A standalone mesatee-core aims to provide a lightweight, efficient TCP-based RPC library with remote attestation integrated, ported from [incubator-teaclave](https://github.com/apache/incubator-teaclave).
 
-Now we provide a very easy-to-use approach for you to write your own trusted application based on [TEESDK](https://github.com/xuperdata/teesdk) and [XuperChain](https://github.com/xuperchain/xuperchain). 
+Now we provide a very easy-to-use approach for you to write your own [Trusted DApp](apps_zh.md) based on [TEESDK](https://github.com/xuperdata/teesdk), [xuper-sdk-go](https://github.com/xuperdata/xuper-sdk-go) and [XuperChain](https://github.com/xuperchain/xuperchain). 
 
 # Quick Start
 
@@ -13,6 +13,7 @@ docker run --name core3 --net=host -v$(pwd):/teaclave -w /teaclave -it teaclave/
 mkdir -p build && cd build
 cmake -DTEST_MODE=ON .. && make
 ```
+If you want to test it in Non-SGX server, add `-DSGX_SIM_MODE` when compiling.
 
 ## Have a try 
 
