@@ -45,7 +45,6 @@ bytes = { version = ">= 0.4.12"} # unix app depends on 0.4.12, while sgx lib dep
 
 prost       = { version = "0.6.0" }
 prost-types = { version = "0.6.0" }
-#prost-build = { version = "0.6.0" }
 
 
 mesatee_core         = { path = "../../../mesatee_core" }
