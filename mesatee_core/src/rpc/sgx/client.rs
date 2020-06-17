@@ -32,7 +32,7 @@ use lazy_static::lazy_static;
 
 lazy_static! {
     static ref CLIENT_CONFIG_CACHE: RwLock<ClientConfigCache> =
-        { RwLock::new(ClientConfigCache::default()) };
+         RwLock::new(ClientConfigCache::default()) ;
 }
 
 // We use sha256 of private_key as the identity of current enclave.

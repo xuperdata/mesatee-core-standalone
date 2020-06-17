@@ -30,7 +30,7 @@ use lazy_static::lazy_static;
 
 lazy_static! {
     static ref SERVER_CONFIG_CACHE: RwLock<ServerConfigCache> =
-        { RwLock::new(ServerConfigCache::default()) };
+         RwLock::new(ServerConfigCache::default()) ;
 }
 
 #[derive(Default)]
