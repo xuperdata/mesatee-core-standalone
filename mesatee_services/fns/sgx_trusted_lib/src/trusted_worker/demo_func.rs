@@ -19,8 +19,10 @@
 #[cfg(feature = "mesalock_sgx")]
 use std::prelude::v1::*;
 
+
 use crate::worker::{Worker, WorkerContext};
 use mesatee_core::{Error, ErrorKind, Result};
+
 
 pub struct EchoWorker {
     worker_id: u32,
@@ -62,7 +64,6 @@ impl Worker for EchoWorker {
             .input
             .take()
             .ok_or_else(|| Error::from(ErrorKind::InvalidInputError))?;
-        
         Ok(input.msg + "duanbing ")
     }
 }
