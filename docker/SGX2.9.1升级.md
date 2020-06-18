@@ -64,12 +64,3 @@ LD_LIBRARY_PATH=/opt/intel/sgx-aesm-service/aesm
 /opt/intel/sgx-aesm-service/aesm/aesm_service
 ```
 
-### 三、安装sdk到docker
-
-1、在docker内的sgx安装包目录，执行以下命令安装sdk，可以选择将sdk安装到/opt/intel
-
-```
-./sgx_linux_x64_sdk_2.9.101.2.bin
-```
-
-### 
