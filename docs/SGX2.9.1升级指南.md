@@ -1,43 +1,40 @@
-## 安装sgx2.9.1操作指南
+# 安装sgx2.9.1操作指南
 
-### 准备工作
+## 准备工作
 
 1、Ubuntu16.04机器（sgx2.9.1需要ubuntu18.04环境，这里将sgx安装到docker）
 
-2、从intel官网下载driver、enclave-common、sdk安装包
-https://download.01.org/intel-sgx/sgx-linux/2.9.1/distro/ubuntu18.04-server/
+2、从intel [官网](https://download.01.org/intel-sgx/sgx-linux/2.9.1/distro/ubuntu18.04-server/) 下载driver安装包
 
-3、暂停已有的aesm服务并卸载/opt/intel下的sgxdriver、sgxsdk
-
+3、暂停已有的aesm服务并卸载/opt/intel下的SGX driver、SGX sdk
 
 
-### 一、在宿主机安装driver
+## 一、在宿主机安装driver
 
-1、在安装包所在目录执行以下命令安装sgxdriver
+1、在安装包所在目录执行以下命令安装SGX driver
 
 ```
 ./sgx_linux_x64_driver_1.33.bin
 ```
 
-在/opt/intel可以找到sgxdriver目录，即表示安装成功
+在/opt/intel可以找到SGX driver目录，即表示安装成功
 
 
-
-### 二、安装enclave-common到docker
+## 二、安装enclave-common到docker
 
 1、创建容器
 
 ```
-docker run --net=host --device /dev/sgx/enclave --name core5 --net=host -v /root/sgx-2.9.1-ubuntu18:/deps -w /deps -it teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1 bash
+docker run --net=host --device /dev/sgx/enclave --name core5 -v /root/sgx-2.9.1-ubuntu18:/deps -w /deps -it teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1 bash
 ```
 
 -v参数自定义，注意要将安装包映射进来。如需将mesatee-core服务也映射进来，可加入-v /root/mesatee-core-standalone:/teaclave，如下：
 
 ```
-docker run --net=host --device /dev/sgx/enclave --name core5 --net=host -v /root/repo/intel-sgx-deps/sgx-2.9.1-ubuntu18:/deps -v /root/mesatee-core-standalone:/teaclave -w /deps -it teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1 bash
+docker run --net=host --device /dev/sgx/enclave --name core5 -v /root/repo/intel-sgx-deps/sgx-2.9.1-ubuntu18:/deps -v /root/mesatee-core-standalone:/teaclave -w /deps -it teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1 bash
 ```
 
-接下来的步骤全部在容器里面进行。
+步骤2-4全部在容器里面进行。
 
 2、安装依赖环境
 
@@ -63,4 +60,3 @@ apt-get install -y libsgx-aesm-ecdsa-plugin-dbgsym libsgx-aesm-launch-plugin lib
 LD_LIBRARY_PATH=/opt/intel/sgx-aesm-service/aesm 
 /opt/intel/sgx-aesm-service/aesm/aesm_service
 ```
-
