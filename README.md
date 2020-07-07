@@ -1,10 +1,10 @@
 # mesatee-core-standalone
 A standalone mesatee-core aims to provide a lightweight, efficient TCP-based RPC library with remote attestation integrated, ported from [incubator-teaclave](https://github.com/apache/incubator-teaclave).
 
-Now we provide a very easy-to-use approach for you to write your own [Trusted DApp](apps_zh.md) based on [TEESDK](https://github.com/xuperdata/teesdk), [xuper-sdk-go](https://github.com/xuperdata/xuper-sdk-go) and [XuperChain](https://github.com/xuperchain/xuperchain). 
+Now we provide a very easy-to-use approach for you to write your own [Trusted DApp](docs/xuperchain%20trusted%20ledger%20-%20chinese.md) based on [TEESDK](https://github.com/xuperdata/teesdk), [xuper-sdk-go](https://github.com/xuperdata/xuper-sdk-go) and [XuperChain](https://github.com/xuperchain/xuperchain). 
 
 ## Quick Start
-Note that you must mount SGX device to use SGX feature. SGX-2.9.1 is required to run the service. Follow the [instructions](docs/SGX2.9.1升级指南.md) to install SGX driver before getting started.
+Note that you must mount SGX device to use SGX feature. SGX-2.9.1 is required to run the service. Follow the [instructions](docs/SGX2.9.1%20update%20instructions.md) to install SGX driver before getting started.
 
 ## Compile
 You can compile the project by yourself:
