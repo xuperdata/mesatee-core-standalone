@@ -14,6 +14,4 @@ if [ "${SGX_MODE}" = "HW" ]; then
     fi
 fi
 
-cd ${MESATEE_PROJECT_ROOT}/tests && ./module_test.sh
-cd ${MESATEE_PROJECT_ROOT}/tests && ./functional_test.sh
-cd ${MESATEE_PROJECT_ROOT}/tests && ./integration_test.sh
+cd ${MESATEE_TEST_INSTALL_DIR} && ./unit_test

@@ -25,7 +25,7 @@ Run tee service in docker:
 # export IAS_KEY=xxx
 # ./fns
 ```
-
+Notice that the default port of fns is 8082.
 ## Run with pre-built docker image
 
 You can run service with pre-built docker image:
@@ -46,22 +46,10 @@ If you want to build your own docker image, check [docker](./docker) subdirector
 
 ## Have a try 
 
-There is a `quickstart` in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianries: `fns` and `quickstart`. 
-
-```
-export IAS_SPID=xxxx
-export IAS_KEY=xxx
-
-cd mesatee-core-standalone/release/services
-export CARGO_PKG_NAME=fns
-./fns
-```
-Notice that the default port of fns is 8082.
-
-Open another terminal, and run
+After compilation, you can find an excutable file  `quickstart` in release/examples directory. This is a simple example to get started, and you can try this as follows:
 ```
 cd mesatee-core-standalone/release/examples
-./quickstart echo -e ./enclave_info.toml  -m "hello, world"
+./quickstart echo -e ./enclave_info.toml  -m "hello world"
 ```
  
 ## Community 

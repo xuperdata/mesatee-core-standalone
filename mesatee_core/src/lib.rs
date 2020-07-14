@@ -74,3 +74,13 @@ pub fn init_service(name: &str) -> Result<()> {
 
     Ok(())
 }
+
+#[cfg(all(feature = "mesatee_unit_test"))]
+pub mod tests {
+    use super::*;
+
+    pub fn test_error() {
+        error::tests::test_debug_error();
+        error::tests::test_downcasting();
+    }
+}

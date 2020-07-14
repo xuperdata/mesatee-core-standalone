@@ -197,3 +197,30 @@ impl IasReport {
         Ok(quote)
     }
 }
+
+#[cfg(all(feature = "mesatee_unit_test", feature = "mesalock_sgx"))]
+pub mod tests {
+    use super::*;
+    use crate::key;
+
+    pub fn test_init_quote() {
+        assert!(IasReport::init_quote().is_ok());
+    }
+
+    pub fn test_create_report() {
+        let (qe_target_info, _epid_group_id) = IasReport::init_quote().unwrap();
+        let key_pair = key::Secp256k1KeyPair::new().unwrap();
+        let sgx_report_result = IasReport::create_report(key_pair.pub_k, qe_target_info);
+        assert!(sgx_report_result.is_ok());
+    }
+
+    pub fn test_get_quote(ias_key: &str, ias_spid: &str) {
+        let (qe_target_info, epid_group_id) = IasReport::init_quote().unwrap();
+        let key_pair = key::Secp256k1KeyPair::new().unwrap();
+        let sgx_report = IasReport::create_report(key_pair.pub_k, qe_target_info).unwrap();
+        let mut ias_client = IasClient::new(ias_key, false);
+        let sigrl = ias_client.get_sigrl(u32::from_le_bytes(epid_group_id)).unwrap();
+        let quote_result = IasReport::get_quote(&sigrl, sgx_report, qe_target_info, ias_spid);
+        assert!(quote_result.is_ok());
+    }
+}

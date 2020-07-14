@@ -13,6 +13,7 @@ path = "src/lib.rs"
 [features]
 default = []
 mesalock_sgx = ["sgx_tstd", "sgx_tcrypto", "sgx_rand", "sgx_tse"]
+mesatee_unit_test = []
 
 [dependencies]
 anyhow       = { version = "1.0.26" }

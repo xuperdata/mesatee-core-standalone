@@ -17,51 +17,15 @@
 
 #![cfg_attr(feature = "mesalock_sgx", no_std)]
 #[cfg(feature = "mesalock_sgx")]
-#[macro_use]
 extern crate sgx_tstd as std;
 
-//#[macro_use]
-extern crate log;
-
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum AttestationError {
-    #[error("OCall failed")]
-    OCallError,
-    #[error("Ias error")]
-    IasError,
-    #[error("Get quote error")]
-    QuoteError,
-}
-
 #[macro_use]
-mod cert;
-pub mod quote;
-pub mod verifier;
+extern crate log;
 
 use cfg_if::cfg_if;
 cfg_if! {
     if #[cfg(feature = "mesalock_sgx")]  {
-        pub mod key;
-        mod report;
-        mod ias;
-        pub use report::IasReport;
+        mod sgx;
     } else {
-    }
-}
-
-#[cfg(all(feature = "mesatee_unit_test", feature = "mesalock_sgx"))]
-pub mod tests {
-    use super::*;
-    use std::env;
-
-    pub fn test_report() {
-        let ias_key = env::var("IAS_KEY").unwrap();
-        let ias_spid = env::var("IAS_SPID").unwrap();
-
-        report::tests::test_init_quote();
-        report::tests::test_create_report();
-        report::tests::test_get_quote(&ias_key, &ias_spid);
     }
 }

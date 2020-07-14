@@ -2,6 +2,7 @@
 
 members = [
   "mesatee_services/fns/sgx_trusted_lib",
+  "tests/unit_test/sgx_trusted_lib",
 ]
 
 exclude = [

@@ -17,5 +17,5 @@
 
 pub mod ecall;
 
-mod command;
+pub mod command;
 pub use command::ECallCommand;

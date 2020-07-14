@@ -123,16 +123,14 @@ pub mod runtime_config {
     }
 }
 
-#[cfg(test)]
-mod tests {
+#[cfg(all(feature = "mesatee_unit_test"))]
+pub mod tests {
     use super::*;
 
-    #[test]
-    fn test_runtime_config() {
+    pub fn test_runtime_config() {
     }
 
-    #[test]
-    fn test_build_config() {
+    pub fn test_build_config() {
         println!("{:?}", build_config::BUILD_CONFIG);
     }
 }

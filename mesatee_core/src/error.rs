@@ -498,14 +498,13 @@ impl std::error::Error for SgxStatus {
     }
 }
 
-#[cfg(test)]
-mod test {
+#[cfg(all(feature = "mesatee_unit_test"))]
+pub mod tests {
     use super::{Custom, Error, ErrorKind, Repr};
     use std::boxed::Box;
     use std::fmt;
 
-    #[test]
-    fn test_debug_error() {
+    pub fn test_debug_error() {
         let err = Error {
             repr: Repr::Custom(Box::new(Custom {
                 kind: ErrorKind::Unknown,
@@ -522,8 +521,7 @@ mod test {
         assert_eq!(format!("{:?}", err), expected);
     }
 
-    #[test]
-    fn test_downcasting() {
+    pub fn test_downcasting() {
         #[derive(Debug)]
         struct TestError;
 
