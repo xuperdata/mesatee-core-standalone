@@ -57,6 +57,5 @@ apt-get install -y libsgx-aesm-ecdsa-plugin-dbgsym libsgx-aesm-launch-plugin lib
 4、启动aesm服务
 
 ```
-LD_LIBRARY_PATH=/opt/intel/sgx-aesm-service/aesm 
-/opt/intel/sgx-aesm-service/aesm/aesm_service
+LD_LIBRARY_PATH=/opt/intel/sgx-aesm-service/aesm /opt/intel/sgx-aesm-service/aesm/aesm_service
 ```
