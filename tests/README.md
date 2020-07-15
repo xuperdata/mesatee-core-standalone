@@ -11,6 +11,19 @@ To run all tests with our build system:
 # make sgx-test
 ```
 
+## Test Coverage
+
+To generate a coverage report for tests, you can configure cmake with `-DCOV=ON`. Then build the platform and run all tests. 
+At last, you need to run `make cov` to aggregate coverage results.
+
+```
+# mkdir build && cd build
+# cmake -DCMAKE_BUILD_TYPE=DEBUG -DCOV=ON -DTEST_MODE=ON ..
+# make
+# make sgx-test
+# make cov
+```
+
 ## Directory Structure
 
 - `unit`:
