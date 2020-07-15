@@ -58,10 +58,11 @@ where
     let mut lbuf: [u8; 8] = [0; 8];
 
     br.read_exact(&mut lbuf)?;
+
     let buf_len = u64::from_ne_bytes(lbuf);
 
     if buf_len > BUILD_CONFIG.rpc_max_message_size {
-        debug!("too large buffer: {:?}", buf_len);
+        error!("too large buffer: {:?}", buf_len);
         return Err(Error::from(ErrorKind::MsgSizeLimitExceedError));
     }
 

@@ -49,19 +49,8 @@ fn test_from_unstrusted() {
 }
 
 fn test_in_tee() -> Result<()> {
-    let tee = match TeeBinder::new(env!("CARGO_PKG_NAME"), 1) {
-        Ok(r) => {
-            info!("Init TEE Successfully!");
-            r
-        }
-        Err(x) => {
-            error!("Init TEE Failed {}!", x);
-            std::process::exit(-1)
-        }
-    };
-
+    let tee = TeeBinder::new(env!("CARGO_PKG_NAME"), 1)?;
     let tee = Arc::new(tee);
-
     {
         let ref_tee = tee.clone();
         ctrlc::set_handler(move || {
@@ -71,17 +60,8 @@ fn test_in_tee() -> Result<()> {
         })
         .expect("Error setting Ctrl-C handler");
     }
-
-    match run_test_in_tee(&tee) {
-        Ok(_) => {
-            info!("Run Enclave Exit Successfully!");
-            Ok(())
-        }
-        Err(x) => {
-            error!("Run Enclave Launch Failed {}!", x);
-            Err(x)
-        }
-    }
+    run_test_in_tee(&tee)?;
+    Ok(())
 }
 
 fn main() -> Result<()> {
