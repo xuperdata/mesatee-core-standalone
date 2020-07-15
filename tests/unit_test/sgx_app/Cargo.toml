@@ -1,0 +1,24 @@
+[package]
+name = "unit_test"
+version = "0.1.0"
+authors = ["MesaTEE Authors <developers@mesatee.org>"]
+description = "Unit tests of MesaTEE"
+license = "Apache-2.0"
+build = "build.rs"
+edition = "2018"
+
+[features]
+default = [
+  "teaclave_config/mesatee_unit_test",
+  "mesatee_core/mesatee_unit_test",
+]
+
+[dependencies]
+sgx_types       = "1.1.0"
+sgx_urts        = "1.1.0"
+mesatee_core    = { path = "../../../mesatee_core" }
+teaclave_binder = { path = "../../../teaclave_binder" }
+teaclave_config = { path = "../../../teaclave_config" }
+ctrlc           = "3.1.2"
+log             = { version = "0.4.6" }
+env_logger      = "0.7.1"

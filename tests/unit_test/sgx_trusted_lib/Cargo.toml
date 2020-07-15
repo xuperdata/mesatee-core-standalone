@@ -1,0 +1,35 @@
+[package]
+name = "unit_test_enclave"
+version = "0.1.0"
+authors = ["MesaTEE Authors <developers@mesatee.org>"]
+description = "Unit tests of MesaTEE"
+license = "Apache-2.0"
+edition = "2018"
+
+[lib]
+name = "unit_test_enclave"
+crate-type = ["staticlib"]
+
+[features]
+default = []
+mesalock_sgx = [
+  "sgx_tstd",
+  "mesatee_core/mesalock_sgx",
+  "sgx_tunittest",
+  "teaclave_attestation/mesalock_sgx",
+  "teaclave_attestation/mesatee_unit_test",
+]
+cov = ["sgx_cov"]
+
+[dependencies]
+cfg-if          = { version = "0.1.9" }
+log             = { version = "0.4.6" }
+env_logger      = { version = "0.7.1" }
+
+mesatee_core    = { path = "../../../mesatee_core" }
+teaclave_config = { path = "../../../teaclave_config" }
+teaclave_attestation = { path = "../../../teaclave_attestation" }
+sgx_tstd        = { version = "1.1.2", features = ["net", "backtrace"], optional = true }
+sgx_types       = { version = "1.1.2" }
+sgx_cov         = { version = "1.1.2", optional = true }
+sgx_tunittest   = { version = "1.1.2", optional = true }

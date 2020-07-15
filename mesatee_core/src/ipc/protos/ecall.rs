@@ -69,3 +69,18 @@ impl ServeConnectionInput {
         ServeConnectionInput { socket_fd, port }
     }
 }
+
+// for unit test
+#[derive(Clone, Serialize, Deserialize, Debug, Default)]
+pub struct RunUnitTestInput;
+
+#[derive(Clone, Serialize, Deserialize, Debug)]
+pub struct RunUnitTestOutput {
+    pub failed_count: usize,
+}
+
+impl RunUnitTestOutput {
+    pub fn new(failed_count: usize) -> RunUnitTestOutput {
+        RunUnitTestOutput { failed_count }
+    }
+}

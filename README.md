@@ -25,7 +25,7 @@ Run tee service in docker:
 # export IAS_KEY=xxx
 # ./fns
 ```
-
+Notice that the default port of fns is 8082.
 ## Run with pre-built docker image
 
 You can run service with pre-built docker image:
@@ -37,7 +37,7 @@ or (depends on your device)
 $ docker run --net=host --device /dev/isgx --name fns --env-file ias -d xuperdata/fns-sgx-2.9.1:1.0
 ```
 
-ias is the file to set environment variables:
+`ias` is the file to set environment variables:
 ```
 IAS_SPID=xxx
 IAS_KEY=xxx
@@ -46,23 +46,20 @@ If you want to build your own docker image, check [docker](./docker) subdirector
 
 ## Have a try 
 
-There is a `quickstart` in mesa_services directory. That's how we write a network enclave application. After compalation, you can get 2 bianries: `fns` and `quickstart`. 
+After compilation, you can find an excutable file  `quickstart` in release/examples directory. This is a simple example to get started, and you can try this as follows:
+```
+# cd /teaclave/release/examples
+# ./quickstart echo -e ./enclave_info.toml  -m "hello world"
+```
 
-```
-export IAS_SPID=xxxx
-export IAS_KEY=xxx
+## Tests 
 
-cd mesatee-core-standalone/release/services
-export CARGO_PKG_NAME=fns
-./fns
+After compilation, you can run tests as follows:
 ```
-Notice that the default port of fns is 8082.
-
-Open another terminal, and run
+# cd /teaclave/build
+# make sgx-test
 ```
-cd mesatee-core-standalone/release/examples
-./quickstart echo -e ./enclave_info.toml  -m "hello, world"
-```
+Refer to [tests](./tests) for more information
  
 ## Community 
 This library is maintained by members from XuperChain team and Mesatee team collaboratively. This lib will largely enable the multiple-parties confidential computing on blockchain. 
