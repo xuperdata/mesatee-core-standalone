@@ -1,5 +1,5 @@
 # mesatee-core-standalone
-A standalone mesatee-core provide a lightweight, efficient TCP-based RPC library with remote attestation integrated, ported from [incubator-teaclave](https://github.com/apache/incubator-teaclave), enable to composing distributed SGX apps easily.
+A standalone mesatee-core, provides a lightweight, efficient TCP-based RPC library with remote attestation integrated, ported from [incubator-teaclave](https://github.com/apache/incubator-teaclave), enable to composing distributed SGX apps easily.
 
 Now we provide a very easy-to-use approach for you to write your own [Trusted DApp](docs/xuperchain%20trusted%20ledger%20-%20chinese.md) based on [TEESDK](https://github.com/xuperdata/teesdk), [xuper-sdk-go](https://github.com/xuperdata/xuper-sdk-go) and [XuperChain](https://github.com/xuperchain/xuperchain). 
 
@@ -42,7 +42,7 @@ $ docker run --net=host --device /dev/isgx --name fns --env-file ias -d xuperdat
 IAS_SPID=xxx
 IAS_KEY=xxx
 ```
-If you want to build your own docker image, check [docker](./docker) subdirectory for more information.
+If you want to build your own docker image, check [docker](./docker) a subdirectory for more information.
 
 ## Have a try 
 
