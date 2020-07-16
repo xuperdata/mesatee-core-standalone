@@ -2,7 +2,7 @@
 
 ### `mesate-core-standalone` Intro
 
-The [`mesate-core-standalone`](https://github.com/xuperdata/mesatee-core-standalone#run)  is from project [incubator-tenclave](https://github.com/apache/incubator-teaclave), but was simplified to a standalone function framework, on which you can compose your distributed SGX apps quickly without worrying about the RA. more details can find [here](https://github.com/xuperdata/mesatee-core-standalone/blob/master/README.md).
+The [`mesate-core-standalone`](https://github.com/xuperdata/mesatee-core-standalone#run)  is from project [incubator-tenclave](https://github.com/apache/incubator-teaclave), but is simplified to a standalone function framework, on which you can compose your distributed SGX apps quickly without worrying about the RA. more details can find [here](https://github.com/xuperdata/mesatee-core-standalone/blob/master/README.md).
 
 ### sgx-device-plugin Intro
 
