@@ -1,4 +1,4 @@
-## Time to ship `mesatee-core-standalone` on K8S
+## Ship `mesatee-core-standalone` on K8S
 
 ### `mesate-core-standalone` Intro
 
