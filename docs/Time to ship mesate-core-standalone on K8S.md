@@ -6,9 +6,9 @@ The [`mesate-core-standalone`](https://github.com/xuperdata/mesatee-core-standal
 
 ### sgx-device-plugin Intro
 
-The [sgx-device-plugin](https://github.com/AliyunContainerService/sgx-device-plugin) enable us to run a SGX-enabled app in k8s cluster with the help of cluster orchestration of k8s and TEE of IntelSGX.  
+The [sgx-device-plugin](https://github.com/AliyunContainerService/sgx-device-plugin) enable us to run a SGX-enabled app in k8s cluster combining both the advantages of cluster orchestration from k8s and application security enhancement from IntelSGX.  
 
-The sgx-device-plugin provides a device plugin,  map the devices `/dev/isgx`  and mount `/run/aesmd/aesm.socket` into the conatiner which run in a SGX server by a cloud-native way.
+The sgx-device-plugin provides a device plugin,which maps the devices `/dev/isgx`  and mounts `/run/aesmd/aesm.socket` into the conatiner which running in a SGX server through a cloud-native way.
 
 For implentaion a device plugin in K8S,  we need implement DevicePlugin [interface](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/):
 
@@ -118,6 +118,38 @@ spec:
    fns-dp-5bdb5b8d78-rl89t      1/1     Running   0          25s
    sgx-device-plugin-ds-crvjf   1/1     Running   0          6h51m
    ```
+   
+5. Add a NodePort service `svc.yaml`:
+
+```
+# svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: fns-service
+spec:
+  type: NodePort
+  selector:
+    app: fns
+  ports:
+    - protocol: TCP
+      targetPort: 8082
+      port: 8082
+      nodePort: 30007
+      
+```
+and check if it's work:
+```
+$ minikube kubectl -- get node -o wide
+NAME       STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE       KERNEL-VERSION      CONTAINER-RUNTIME
+minikube   Ready    master   16h   v1.18.3   172.17.0.3    <none>        Ubuntu 19.10   4.13.0-36-generic   docker://19.3.2
+
+$ curl 172.17.0.3:30007
+curl: (52) Empty reply from server
+```
+you also can test it by running the unittest of [TEESDK](https://github.com/xuperdata/teesdk)
+
+### Next Plan 
 
 Our next work is to integrate a LibOS to run Golang or Java native application by K8S with security enhancement. 
 
