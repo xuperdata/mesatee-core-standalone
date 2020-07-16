@@ -32,7 +32,7 @@ In order to do SGX-based app load balancing,  this plugin collects the free EPC 
 
 Notice that memory can not be reusable usually, but ERC is resuable here, which means this kind of resource is just abstracted for load-balance, not for isolation usage.
 
-That's almost all the function it provides now.  We need to do something more to make it run as our expectation: 
+That's almost all it provides now.  We need to do something more to make it easy to land: 
 
 1. RA integration
 2. A SGX-LibOS to support multiple language runtime 
