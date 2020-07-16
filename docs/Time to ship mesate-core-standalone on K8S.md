@@ -87,12 +87,12 @@ spec:
         image: xuperdata/fns-sgx-2.9.1:1.0
         imagePullPolicy: Always
         env:
-    		- name: IAS_KEY
-      		value: {{your key}}
-    		- name: IAS_SPID
-      		value: {{your spid}}
-      	- name: RUST_LOG
-      		value: debug
+    	  - name: IAS_KEY
+          value: {{your key}}
+    	  - name: IAS_SPID
+          value: {{your spid}}
+        - name: RUST_LOG
+          value: debug
         resources:
           limits:
             cpu: 250m
