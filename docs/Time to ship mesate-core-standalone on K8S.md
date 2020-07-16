@@ -49,7 +49,7 @@ For easy-to-compose a SGX app,  `mesate-core-standalone`  now work as a framewor
 
 I will give more details about those project in the follow doc.
 
-For Confidential storage, we have too approches. The first one is keep the secret in our blockchain by [Private Ledger](https://github.com/xuperdata/mesatee-core-standalone/blob/master/docs/xuperchain trusted ledger - chinese.md)), which is ready now, but sounds heavy due to maintainment of a blockchain network. The other one is rewrite the FS operation, and then redirect the encrypted data into distributed network FS, with the help of our KMS. The later one is light, and transparent to end user, I will give the design doc later.  
+For Confidential storage, we have too approches. The first one is keep the secret in our blockchain by [Private Ledger](https://github.com/xuperdata/mesatee-core-standalone/blob/master/docs/xuperchain%20trusted%20ledger%20-%20chinese.md), which is ready now, but sounds heavy due to maintainment of a blockchain network. The other one is rewrite the FS operation, and then redirect the encrypted data into distributed network FS, with the help of our KMS. The later one is light, and transparent to end user, I will give the design doc later.  
 
 ### Demo show
 
