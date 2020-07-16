@@ -55,7 +55,7 @@ For Confidential storage, we have too approches. The first one is keep the secre
 
 1. minikube installation
 
-   minikube is a single node K8S cluster builder.  It's easy to install minikube by this [office doc](https://kubernetes.io/docs/tasks/tools/install-minikube/) if you can access to gcr.io or [this doc](https://developer.aliyun.com/article/221687). 
+   minikube is a single node K8S cluster builder.  It's easy to install minikube by the [official doc](https://kubernetes.io/docs/tasks/tools/install-minikube/) if you can access to gcr.io or by [this doc](https://developer.aliyun.com/article/221687). 
 
 2. Then start the cluster and deploy the sgx plugin by DaemonSet.
 
