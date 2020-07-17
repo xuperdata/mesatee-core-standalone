@@ -147,4 +147,4 @@ you also can test it by running the unit test of [TEESDK](https://github.com/xup
 
 ### Next Plan
 
-Our next work is to integrate a LibOS to run Golang or Java native application by K8S with security enhancement. 
+Our next work is to integrate a LibOS for Golang or Java native application with security enhancement. 
