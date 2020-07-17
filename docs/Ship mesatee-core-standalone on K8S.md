@@ -57,14 +57,14 @@ For Confidential storage, we have two approaches. The first one is to keep the s
 
 minikube is a single node K8S cluster builder.  It's easy to install minikube by the [official doc](https://kubernetes.io/docs/tasks/tools/install-minikube/) if you can access to gcr.io or by [this doc](https://developer.aliyun.com/article/221687). 
 
-1. Then start the cluster and deploy the SGX plugin by DaemonSet.
+2. Then start the cluster and deploy the SGX plugin by DaemonSet.
 
 ```
 minikube start --driver=docker
 minikube kubectl -- apply -f https://github.com/duanbing/sgx-device-plugin/blob/master/deploy/sgx-device-plugin.yaml
 ```
 
-1. Deploy the mesate-core-standalone by K8S.  
+3. Deploy the mesate-core-standalone by K8S.  
 
 ```
 apiVersion: apps/v1
@@ -73,7 +73,7 @@ metadata:
   name: fns-dp
   namespace: default
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: fns
@@ -109,11 +109,15 @@ spec:
         name: sgxdevice
 ```
 
-1. Check the status of mesatee-core-standalone. 
+4. Check the status of mesatee-core-standalone. 
+```
+$ minikube kubectl -- get pod
+NAME                         READY   STATUS    RESTARTS   AGE
+fns-dp-5bdb5b8d78-2qnpr      1/1     Running   0          7h14m
+sgx-device-plugin-ds-crvjf   1/1     Running   0          14h
+```
 
-$ minikube kubectl -- get pod    NAME                         READY   STATUS    RESTARTS   AGE    fns-dp-5bdb5b8d78-2qnpr      1/1     Running   0          31s    fns-dp-5bdb5b8d78-rl89t      1/1     Running   0          25s    sgx-device-plugin-ds-crvjf   1/1     Running   0          6h51m
-
-1. Add a NodePort service svc.yaml:
+5. Add a NodePort service svc.yaml:
 
 ```
 # svc.yaml
