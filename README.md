@@ -60,6 +60,18 @@ After compilation, you can run tests as follows:
 # make sgx-test
 ```
 Refer to [tests](./tests) for more information
- 
+
+## Simulation Mode
+
+By default, the outcome is targeting a platform with SGX hardware.  In order to
+switch to SGX simulation target, please set `-DSGX_SIM_MODE=ON` when running `cmake`.
+```
+# cd /teaclave/build
+# cmake -DSGX_SIM_MODE=ON ..
+# make
+```
+In simulation mode, mesatee-core-standalone won't really connect to IAS to fetch reports, nor perform remote attestation during the TLS communications.
+So basically it enables you to freely run on arbitrary platforms to test the functionalities.
+
 ## Community 
 This library is maintained by members from XuperChain team and Mesatee team collaboratively. This lib will largely enable the multiple-parties confidential computing on blockchain. 

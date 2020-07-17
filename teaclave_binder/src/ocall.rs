@@ -19,7 +19,6 @@ use sgx_types::*;
 use std::net::TcpStream;
 use std::os::unix::io::IntoRawFd;
 
-#[link(name = "sgx_uae_service")]
 extern "C" {
     fn sgx_init_quote(
         p_target_info: *mut sgx_target_info_t,

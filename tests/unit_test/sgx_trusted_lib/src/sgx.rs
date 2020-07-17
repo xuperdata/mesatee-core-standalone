@@ -33,10 +33,12 @@ register_ecall_handler!(
 
 #[handle_ecall]
 fn handle_run_unit_test(_args: &RunUnitTestInput) -> Result<RunUnitTestOutput> {
-    let nfailed = rsgx_unit_tests!(
-        #[cfg(not(sgx_sim))]
-        teaclave_attestation::tests::test_report,
-    );
+    let mut nfailed = 0;
+    if !cfg!(sgx_sim) {
+        nfailed = rsgx_unit_tests!(
+            teaclave_attestation::tests::test_report,
+        );
+    };
 
     Ok(RunUnitTestOutput::new(nfailed))
 }
@@ -44,7 +46,6 @@ fn handle_run_unit_test(_args: &RunUnitTestInput) -> Result<RunUnitTestOutput> {
 #[handle_ecall]
 fn handle_init_enclave(_args: &InitEnclaveInput) -> Result<InitEnclaveOutput> {
     mesatee_core::init_service(env!("CARGO_PKG_NAME"))?;
-
     Ok(InitEnclaveOutput::default())
 }
 
