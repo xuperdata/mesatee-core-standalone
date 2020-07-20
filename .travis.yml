@@ -1,9 +1,6 @@
 language: rust
-install: true
+install: false
 sudo: false
-
-rust:
-  - nightly-2020-04-07
 
 services:
   - docker
