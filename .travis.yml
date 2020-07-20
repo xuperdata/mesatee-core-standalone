@@ -11,7 +11,7 @@ matrix:
       dist: xenial
 
 script:
-  - diff -u <(echo -n) <(rustfmt -d $(find . -type f -name '*.rs' -not -path "./vendor/*"))
+  #- diff -u <(echo -n) <(rustfmt -d $(find . -type f -name '*.rs' -not -path "./vendor/*"))
   - mkdir build && cd build
   - cmake -DSGX_SIM_MODE=ON -DTEST_MODE=ON .. && make
   - make sgx-test
