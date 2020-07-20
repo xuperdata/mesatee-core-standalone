@@ -6,7 +6,7 @@ services:
   - docker
 
 before_install:
-- docker pull xuperdata/fns-sgx-2.9.1
+- docker pull xuperdata/fns-sgx-2.9.1:1.0
 - docker run -it -v $PWD:/teaclave -w /teaclave xuperdata/fns-sgx-2.9.1 /bin/sh -c "mkdir build && cd build; cmake -DSGX_SIM_MODE=ON -DTEST_MODE=ON .. && make; make sgx-test"
 
 script:
