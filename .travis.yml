@@ -1,0 +1,24 @@
+language: rust
+install: true
+sudo: false
+
+rust:
+  - 1.44.0
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+
+script:
+  - diff -u <(echo -n) <(rustfmt -d $(find . -type f -name '*.rs' -not -path "./vendor/*"))
+  - mkdir build && cd build
+  - cmake -DSGX_SIM_MODE=ON -DTEST_MODE=ON .. && make
+  - make sgx-test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)  -y .github/codecov.yml
+
+cache:
+  directories:
+    - .cache
