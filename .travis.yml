@@ -6,8 +6,8 @@ services:
   - docker
 
 before_install:
-- docker pull xuperdata/fns-sgx-2.9.1:1.0
-- docker run -it -v $PWD:/teaclave -w /teaclave xuperdata/fns-sgx-2.9.1:1.0 /bin/sh -c "mkdir build && cd build; cmake -DSGX_SIM_MODE=ON -DTEST_MODE=ON .. && make; make sgx-test"
+- docker pull teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1
+- docker run -it -v $PWD:/teaclave -w /teaclave teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1 /bin/sh -c "source /opt/sgxsdk/environment; mkdir build && cd build; cmake -DSGX_SIM_MODE=ON -DTEST_MODE=ON .. && make; make sgx-test"
 
 script:
   #- diff -u <(echo -n) <(rustfmt -d $(find . -type f -name '*.rs' -not -path "./vendor/*"))
