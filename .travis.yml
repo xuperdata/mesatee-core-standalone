@@ -3,7 +3,7 @@ install: true
 sudo: false
 
 rust:
-  - 1.44.0
+  - nightly-2020-04-07
 
 matrix:
   include:
