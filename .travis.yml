@@ -8,11 +8,10 @@ rust:
 matrix:
   include:
     - os: linux
-      dist: xenial
+      dist: bionic
 
 script:
   #- diff -u <(echo -n) <(rustfmt -d $(find . -type f -name '*.rs' -not -path "./vendor/*"))
-  - cd mesatee-core-standalone
   - mkdir build && cd build
   - cmake -DSGX_SIM_MODE=ON -DTEST_MODE=ON .. && make
   - make sgx-test
