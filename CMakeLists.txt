@@ -4,7 +4,7 @@ project (MesaTEE C)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(MesaTEEUtils)
 include(ExternalProject)
-check_exe_dependencies(git openssl python rustup lsof pypy)
+check_exe_dependencies(git openssl python rustup lsof)
 init_submodules()
 
 # ====== VARIABLES FOR CMAKE -D{VAR}=VAL CONFIGURATION BEGIN ======
