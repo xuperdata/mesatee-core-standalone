@@ -1,10 +1,7 @@
-#install: false
-#sudo: false
-
 services:
   - docker
 
-before_install:
+install:
 - docker pull teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1
 
 script:
