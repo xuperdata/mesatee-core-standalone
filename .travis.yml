@@ -1,5 +1,5 @@
-services:
-  - docker
+#services:
+#  - docker
 
 #install:
 #- docker pull teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1
