@@ -1,10 +1,6 @@
 services:
   - docker
 
-branches:
-  only:
-    - "master"
-
 install:
 - docker pull teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1
 
