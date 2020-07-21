@@ -1,13 +1,12 @@
-#services:
-#  - docker
+services:
+  - docker
 
-#install:
-#- docker pull teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1
+install:
+- docker pull teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1
 
 script:
   #- diff -u <(echo -n) <(rustfmt -d $(find . -type f -name '*.rs' -not -path "./vendor/*"))
-  #- docker run -it -v $PWD:/teaclave -w /teaclave teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1 /bin/sh -c "source /opt/sgxsdk/environment; export PATH=$PATH:/root/.cargo/bin; mkdir build && cd build; cmake -DSGX_SIM_MODE=ON -DTEST_MODE=ON .. && make; make sgx-test"
-  - echo "done" 
+  - docker run -it -v $PWD:/teaclave -w /teaclave teaclave/teaclave-build-ubuntu-1804-sgx-2.9.1 /bin/sh -c "source /opt/sgxsdk/environment; export PATH=$PATH:/root/.cargo/bin; mkdir build && cd build; cmake -DSGX_SIM_MODE=ON -DTEST_MODE=ON .. && make; make sgx-test"
 
 cache:
   directories:
