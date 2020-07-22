@@ -1,6 +1,7 @@
 # mesatee-core-standalone
 ---
 [![Build Status](https://travis-ci.com/xuperdata/mesatee-core-standalone.svg?branch=master)](https://travis-ci.com/xuperdata/mesatee-core-standalone)
+[![codecov](https://codecov.io/gh/xuperdata/mesatee-core-standalone/branch/master/graph/badge.svg)](https://codecov.io/gh/xuperdata/mesatee-core-standalone)
 
 A standalone mesatee-core, with a lightweight, efficient TCP-based RPC library with remote attestation integrated, ported from [incubator-teaclave](https://github.com/apache/incubator-teaclave), enable your to compose distributed SGX apps quickly.
 
