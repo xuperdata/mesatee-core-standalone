@@ -136,12 +136,11 @@ spec:
       nodePort: 30007
 ```
 
-and check if it's work:
+and check if it works:
 
 ```
-$ minikube kubectl -- get node -o wide
-NAME       STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE       KERNEL-VERSION      CONTAINER-RUNTIME
-minikube   Ready    master   16h   v1.18.3   172.17.0.3    <none>        Ubuntu 19.10   4.13.0-36-generic   docker://19.3.2
+$ minikube service fns-service --url
+http://172.17.0.3:30007
 
 $ curl 172.17.0.3:30007
 curl: (52) Empty reply from server
