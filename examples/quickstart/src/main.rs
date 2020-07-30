@@ -36,15 +36,6 @@ struct EchoOpt {
 }
 
 #[derive(Debug, StructOpt)]
-struct PsiOpt {
-    #[structopt(short = "e", required = true)]
-    enclave_info: PathBuf,
-
-    #[structopt(short = "f", required = true)]
-    files: Vec<path::PathBuf>,
-}
-
-#[derive(Debug, StructOpt)]
 enum Command {
     /// Echo
     #[structopt(name = "echo")]
