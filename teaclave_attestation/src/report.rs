@@ -19,7 +19,7 @@ use crate::ias::IasClient;
 use crate::AttestationError;
 use anyhow::Error;
 use anyhow::Result;
-use log::debug;
+use log::{debug, warn};
 use sgx_rand::os::SgxRng;
 use sgx_rand::Rng;
 use sgx_tcrypto::rsgx_sha256_slice;
@@ -87,7 +87,8 @@ impl IasReport {
         let mut rt: sgx_status_t = sgx_status_t::SGX_ERROR_UNEXPECTED;
 
         let res = unsafe { ocall_sgx_init_quote(&mut rt as _, &mut ti as _, &mut eg as _) };
-
+        warn!("init_quote res: {:?}", res);
+        warn!("init_quote rt: {:?}", rt);
         if res != sgx_status_t::SGX_SUCCESS || rt != sgx_status_t::SGX_SUCCESS {
             Err(Error::new(AttestationError::OCallError))
         } else {
