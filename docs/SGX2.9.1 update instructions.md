@@ -59,3 +59,6 @@ apt-get install -y libsgx-aesm-ecdsa-plugin-dbgsym libsgx-aesm-launch-plugin lib
 ```
 LD_LIBRARY_PATH=/opt/intel/sgx-aesm-service/aesm /opt/intel/sgx-aesm-service/aesm/aesm_service
 ```
+
+### 其他
+如果要在Ubuntu20.04，需要考虑降低protobuf的版本17到10.  [下载地址](https://debian.pkgs.org/9/debian-main-amd64/libprotobuf10_3.0.0-9_amd64.deb.html)。   
