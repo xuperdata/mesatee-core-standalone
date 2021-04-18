@@ -51,12 +51,14 @@ apt install nodejs -y
 3、安装sgx-enclave-common
 
 ```
-apt-get install -y libsgx-aesm-ecdsa-plugin-dbgsym libsgx-aesm-launch-plugin libsgx-ae-pce libsgx-dcap-pccs libsgx-ae-qe3 libsgx-dcap-default-qpl-dbgsym \
-libsgx-ae-qve libsgx-quote-ex libsgx-aesm-pce-plugin libsgx-epid-dev libsgx-quote-ex-dev libsgx-enclave-common-dev libsgx-aesm-ecdsa-plugin \
-libsgx-aesm-epid-plugin-dbgsym libsgx-dcap-ql-dev libsgx-epid-dbgsym libsgx-aesm-quote-ex-plugin-dbgsym libsgx-aesm-launch-plugin-dbgsym \
-libsgx-ae-le libsgx-epid libsgx-urts-dbgsym libsgx-enclave-common-dbgsym libsgx-aesm-epid-plugin libsgx-aesm-quote-ex-plugin libsgx-enclave-common \
-libsgx-launch libsgx-launch-dbgsym libsgx-dcap-ql-dbgsym libsgx-dcap-default-qpl-dev libsgx-ae-epid libsgx-uae-service-dbgsym libsgx-launch-dev \
-libsgx-aesm-pce-plugin-dbgsym libsgx-dcap-default-qpl libsgx-quote-ex-dbgsym libsgx-uae-service libsgx-urts libsgx-dcap-ql
+apt-get install -y libsgx-aesm-ecdsa-plugin-dbgsym libsgx-aesm-launch-plugin libsgx-ae-pce libsgx-dcap-pccs  \
+libsgx-ae-qe3 libsgx-dcap-default-qpl-dbgsym libsgx-ae-qve libsgx-quote-ex libsgx-aesm-pce-plugin libsgx-epid-dev \
+libsgx-quote-ex-dev libsgx-enclave-common-dev libsgx-aesm-ecdsa-plugin libsgx-aesm-epid-plugin-dbgsym \
+libsgx-dcap-ql-dev libsgx-epid-dbgsym libsgx-aesm-quote-ex-plugin-dbgsym libsgx-aesm-launch-plugin-dbgsym \
+libsgx-ae-le libsgx-epid libsgx-urts-dbgsym libsgx-enclave-common-dbgsym libsgx-aesm-epid-plugin \
+libsgx-aesm-quote-ex-plugin libsgx-enclave-common libsgx-launch libsgx-launch-dbgsym libsgx-dcap-ql-dbgsym \
+libsgx-dcap-default-qpl-dev libsgx-ae-epid libsgx-uae-service-dbgsym libsgx-launch-dev libsgx-aesm-pce-plugin-dbgsym \
+libsgx-dcap-default-qpl libsgx-quote-ex-dbgsym libsgx-uae-service libsgx-urts libsgx-dcap-ql
 ```
 
 4、启动aesm服务
